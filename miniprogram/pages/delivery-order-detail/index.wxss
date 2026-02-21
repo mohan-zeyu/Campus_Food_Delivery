@@ -1,0 +1,17 @@
+/* pages/delivery-order-detail/index.wxss */
+.delivery-order-page { padding-bottom: 160rpx; }
+.status-banner {
+  background: #FF6B35; padding: 48rpx 32rpx;
+}
+.status-text { font-size: 40rpx; font-weight: 700; color: #FFF; }
+.info-card { margin: 16rpx; }
+.card-title { font-size: 28rpx; font-weight: 600; margin-bottom: 16rpx; }
+.item-row { padding: 8rpx 0; }
+.action-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #FFF; box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.06);
+}
+.action-btn { width: 100%; background: #FF6B35; color: #FFF; border-radius: 40rpx; padding: 28rpx 0; font-size: 32rpx; font-weight: 600; }
+.action-done { text-align: center; color: #07C160; font-size: 32rpx; padding: 28rpx 0; }
+.fee-card { margin: 16rpx; }

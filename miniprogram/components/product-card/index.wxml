@@ -1,0 +1,14 @@
+<!--components/product-card/index.wxml-->
+<view class="product-card" bindtap="onTap">
+  <image class="product-img" src="{{product.images[0]}}" mode="aspectFill"/>
+  <view class="product-info">
+    <view class="product-name">{{product.name}}</view>
+    <view class="product-tags">
+      <text class="tag" wx:for="{{product.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="product-bottom row-between">
+      <view class="price">¥<text class="price-num">{{product.price/100}}</text></view>
+      <view class="add-btn" catchtap="onAdd">+</view>
+    </view>
+  </view>
+</view>

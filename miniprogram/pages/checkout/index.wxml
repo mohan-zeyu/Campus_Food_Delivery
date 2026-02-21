@@ -1,0 +1,60 @@
+<!--pages/checkout/index.wxml-->
+<view class="checkout-page">
+
+  <!-- 收货地址 -->
+  <view class="section-card card" wx:if="{{address}}">
+    <view class="section-title">收货地址</view>
+    <view class="addr-row row">
+      <view class="addr-label tag">{{address.label}}</view>
+      <view class="addr-info flex-1">
+        <view class="text-bold">{{address.building}} {{address.room}}</view>
+        <view class="text-secondary text-sm mt-8">{{address.contact}} {{address.phone}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商家 & 商品 -->
+  <view class="section-card card" wx:if="{{cartData}}">
+    <view class="section-title">{{cartData.merchant_name}}</view>
+    <view class="order-item row" wx:for="{{cartData.items}}" wx:key="product_id">
+      <view class="item-name flex-1">{{item.name}}</view>
+      <view class="item-qty text-secondary">x{{item.quantity}}</view>
+      <view class="item-price">¥{{item.unit_price/100}}</view>
+    </view>
+  </view>
+
+  <!-- 费用 -->
+  <view class="section-card card">
+    <view class="fee-row row-between">
+      <view class="text-secondary">商品合计</view>
+      <view>¥{{summary.itemsTotal/100}}</view>
+    </view>
+    <view class="fee-row row-between">
+      <view class="text-secondary">包装费</view>
+      <view>¥{{summary.packagingFee/100}}</view>
+    </view>
+    <view class="fee-row row-between">
+      <view class="text-secondary">配送费</view>
+      <view>¥{{params.deliveryFee/100}}</view>
+    </view>
+    <view class="divider mt-16 mb-16"></view>
+    <view class="fee-row row-between text-bold">
+      <view>实付金额</view>
+      <view class="price text-xl">¥{{(summary.itemsTotal + summary.packagingFee + params.deliveryFee)/100}}</view>
+    </view>
+  </view>
+
+  <!-- 说明 -->
+  <view class="pay-tip">本平台使用模拟支付，点击"确认下单"即视为支付成功</view>
+
+  <!-- 底部按钮 -->
+  <view class="footer-bar">
+    <view class="total flex-1">
+      实付 <text class="price text-xl">¥{{(summary.itemsTotal + summary.packagingFee + params.deliveryFee)/100}}</text>
+    </view>
+    <button class="submit-btn btn-primary" loading="{{submitting}}" bindtap="onSubmitOrder">
+      确认下单
+    </button>
+  </view>
+
+</view>

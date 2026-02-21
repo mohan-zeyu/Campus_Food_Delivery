@@ -1,0 +1,11 @@
+/* components/order-card/index.wxss */
+.order-card {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+}
+.merchant-name { font-size: 30rpx; }
+.status { }
+.price { color: #FF6B35; font-weight: 700; font-size: 32rpx; }

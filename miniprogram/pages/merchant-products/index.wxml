@@ -1,0 +1,28 @@
+<!--pages/merchant-products/index.wxml-->
+<view class="products-page">
+  <view wx:if="{{loading}}" class="loading-wrap">加载中...</view>
+  <view wx:elif="{{products.length === 0}}" class="empty-state">
+    <view style="font-size:80rpx">🍽️</view>
+    <view class="text-secondary mt-16">还没有商品，快去添加吧</view>
+  </view>
+  <view wx:else>
+    <view class="product-item card row" wx:for="{{products}}" wx:key="_id">
+      <image class="prod-img" src="{{item.images[0]}}" mode="aspectFill"/>
+      <view class="prod-info flex-1">
+        <view class="prod-name text-bold">{{item.name}}</view>
+        <view class="prod-price price mt-8">¥{{item.price/100}}</view>
+        <view class="prod-cat text-secondary text-sm">{{item.category}}</view>
+      </view>
+      <view class="prod-actions col">
+        <view class="edit-btn text-primary text-sm" catchtap="onEditProduct" data-id="{{item._id}}">编辑</view>
+        <view class="toggle-btn text-sm mt-8 {{item.is_available ? 'text-success' : 'text-secondary'}}"
+          catchtap="onToggleAvailable" data-id="{{item._id}}">
+          {{item.is_available ? '上架' : '下架'}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="add-btn-wrap">
+    <view class="add-btn" bindtap="onAddProduct">+ 新增商品</view>
+  </view>
+</view>

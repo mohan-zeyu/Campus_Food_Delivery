@@ -1,0 +1,83 @@
+<!--pages/cart/index.wxml-->
+<view class="cart-page" wx:if="{{cartData && cartData.items.length > 0}}">
+
+  <!-- 商家名称 -->
+  <view class="merchant-bar row-between card">
+    <view class="text-bold">{{cartData.merchant_name}}</view>
+    <view class="clear-btn text-secondary text-sm" bindtap="onClearCart">清空</view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="cart-items card">
+    <view class="cart-item row" wx:for="{{cartData.items}}" wx:key="product_id">
+      <image class="item-img" src="{{item.image}}" mode="aspectFill"/>
+      <view class="item-info flex-1">
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-remarks text-secondary text-sm" wx:if="{{item.remarks}}">{{item.remarks}}</view>
+        <view class="item-bottom row-between">
+          <view class="price">¥{{item.unit_price/100}}</view>
+          <view class="qty-ctrl row">
+            <view class="qty-btn" catchtap="onQuantityChange"
+              data-product-id="{{item.product_id}}"
+              data-remarks="{{item.remarks}}"
+              data-delta="{{-1}}">−</view>
+            <view class="qty-num">{{item.quantity}}</view>
+            <view class="qty-btn plus" catchtap="onQuantityChange"
+              data-product-id="{{item.product_id}}"
+              data-remarks="{{item.remarks}}"
+              data-delta="{{1}}">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 收货地址 -->
+  <view class="address-card card">
+    <view class="section-label text-secondary text-sm mb-8">收货地址</view>
+    <view wx:if="{{selectedAddress}}" class="address-info" bindtap="onAddressSelect">
+      <view class="addr-label tag">{{selectedAddress.label}}</view>
+      <view class="addr-detail">{{selectedAddress.building}} {{selectedAddress.room}}</view>
+      <view class="addr-contact text-secondary text-sm">{{selectedAddress.contact}} {{selectedAddress.phone}}</view>
+    </view>
+    <view wx:else class="add-addr-btn" bindtap="onAddAddress">+ 添加收货地址</view>
+  </view>
+
+  <!-- 费用明细 -->
+  <view class="fee-card card">
+    <view class="fee-row row-between">
+      <view class="text-secondary">商品合计</view>
+      <view>¥{{summary.itemsTotal/100}}</view>
+    </view>
+    <view class="fee-row row-between">
+      <view class="text-secondary">包装费</view>
+      <view>¥{{summary.packagingFee/100}}</view>
+    </view>
+    <view class="fee-row row-between">
+      <view class="text-secondary">配送费</view>
+      <view>¥{{deliveryFee/100}}</view>
+    </view>
+    <view class="divider mt-16 mb-16"></view>
+    <view class="fee-row row-between text-bold">
+      <view>合计</view>
+      <view class="price">¥{{(summary.itemsTotal + summary.packagingFee + deliveryFee)/100}}</view>
+    </view>
+  </view>
+
+  <!-- 底部结算 -->
+  <view class="checkout-bar">
+    <view class="total-info flex-1">
+      共{{summary.itemCount}}件 合计
+      <text class="price text-xl">¥{{(summary.itemsTotal + summary.packagingFee + deliveryFee)/100}}</text>
+    </view>
+    <view class="checkout-btn btn-primary" bindtap="onCheckout">去结算</view>
+  </view>
+
+</view>
+
+<!-- 空购物车 -->
+<view wx:else class="empty-cart">
+  <view class="empty-icon">🛒</view>
+  <view class="empty-text">购物车空空如也</view>
+  <view class="go-btn btn-primary" bindtap="onGoHome">去逛逛</view>
+</view>

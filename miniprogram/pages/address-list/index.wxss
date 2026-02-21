@@ -1,0 +1,22 @@
+/* pages/address-list/index.wxss */
+.addr-list-page { padding: 0 0 200rpx; }
+.addr-card { margin: 16rpx; }
+.addr-top { margin-bottom: 4rpx; }
+.default-tag {
+  margin-left: 12rpx;
+  background: #FFF0EB;
+  color: #FF6B35;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+}
+.addr-actions {
+  margin-top: 20rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid #EEEEEE;
+}
+.action-btns { gap: 24rpx; }
+.action-btn { font-size: 26rpx; padding: 0 8rpx; }
+.add-btn-wrap { position: fixed; bottom: 0; left: 0; right: 0; padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom)); background: #FFF; }
+.add-btn { text-align: center; background: #FF6B35; color: #FFF; border-radius: 40rpx; padding: 24rpx 0; font-size: 30rpx; font-weight: 600; }
+.empty-state { text-align: center; padding-top: 160rpx; }

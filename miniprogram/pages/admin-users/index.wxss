@@ -1,0 +1,7 @@
+/* pages/admin-users/index.wxss */
+.admin-users-page { padding: 16rpx; }
+.user-item { margin-bottom: 16rpx; }
+.actions { gap: 20rpx; }
+.action-btn { padding: 8rpx 20rpx; border-radius: 20rpx; border: 2rpx solid currentColor; }
+.text-success { color: #07C160; }
+.text-error { color: #E54545; }

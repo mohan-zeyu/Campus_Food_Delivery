@@ -1,0 +1,43 @@
+<!--pages/delivery-order-detail/index.wxml-->
+<view class="delivery-order-page" wx:if="{{!loading}}">
+
+  <view class="status-banner">
+    <view class="status-text">{{order.status === 'paid' ? '待接单' : order.status === 'accepted' ? '准备取餐' : order.status === 'picking_up' ? '取餐中' : order.status === 'in_transit' ? '配送中' : '已送达'}}</view>
+  </view>
+
+  <view class="info-card card">
+    <view class="card-title">配送地址</view>
+    <view class="addr-detail text-bold">📍 {{order.delivery_address.building}} {{order.delivery_address.room}}</view>
+    <view class="addr-contact text-secondary text-sm mt-8">{{order.delivery_address.contact}} {{order.delivery_address.phone}}</view>
+  </view>
+
+  <view class="info-card card">
+    <view class="card-title">{{order.merchant_name}}</view>
+    <view wx:for="{{order.items}}" wx:key="product_id" class="item-row row-between">
+      <view class="text-secondary">{{item.product_name}} x{{item.quantity}}</view>
+      <view>¥{{item.subtotal/100}}</view>
+    </view>
+  </view>
+
+  <view class="fee-card card">
+    <view class="row-between">
+      <view class="text-secondary">配送收益</view>
+      <view class="text-primary text-bold">+¥{{order.delivery_fee/100}}</view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-bar">
+    <button wx:if="{{order.status === 'paid'}}"
+      class="action-btn btn-primary" loading="{{actionLoading}}" bindtap="onAccept">接单</button>
+    <button wx:elif="{{order.status === 'accepted'}}"
+      class="action-btn btn-primary" bindtap="onPickUp">已取餐</button>
+    <button wx:elif="{{order.status === 'picking_up'}}"
+      class="action-btn btn-primary" bindtap="onDispatch">开始配送</button>
+    <button wx:elif="{{order.status === 'in_transit'}}"
+      class="action-btn btn-primary" bindtap="onDeliver">确认送达</button>
+    <view wx:elif="{{order.status === 'delivered'}}" class="action-done">已完成配送 ✓</view>
+  </view>
+
+</view>
+<view wx:else class="loading-wrap">加载中...</view>

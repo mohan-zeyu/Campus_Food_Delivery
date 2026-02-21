@@ -1,0 +1,19 @@
+<!--pages/admin-users/index.wxml-->
+<view class="admin-users-page">
+  <view wx:if="{{loading}}" class="loading-wrap">加载中...</view>
+  <view class="user-item card" wx:for="{{users}}" wx:key="_id">
+    <view class="row-between">
+      <view>
+        <view class="text-bold">{{item.nickname}}</view>
+        <view class="text-secondary text-sm mt-8">{{item.role}} · {{item.status}}</view>
+      </view>
+      <view class="actions row">
+        <view class="action-btn text-primary text-sm" catchtap="onSetRole" data-id="{{item._id}}">改角色</view>
+        <view class="action-btn text-sm {{item.status === 'active' ? 'text-error' : 'text-success'}}"
+          catchtap="onBan" data-id="{{item._id}}" data-status="{{item.status}}">
+          {{item.status === 'active' ? '封禁' : '解封'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

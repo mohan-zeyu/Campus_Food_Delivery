@@ -1,0 +1,70 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/index",
+    "pages/merchant-detail/index",
+    "pages/product-detail/index",
+    "pages/cart/index",
+    "pages/checkout/index",
+    "pages/order-list/index",
+    "pages/order-detail/index",
+    "pages/review/index",
+    "pages/search/index",
+    "pages/profile/index",
+    "pages/address-list/index",
+    "pages/address-edit/index",
+    "pages/delivery-hall/index",
+    "pages/delivery-order-detail/index",
+    "pages/delivery-history/index",
+    "pages/merchant-dashboard/index",
+    "pages/merchant-products/index",
+    "pages/merchant-product-edit/index",
+    "pages/merchant-orders/index",
+    "pages/admin-dashboard/index",
+    "pages/admin-merchants/index",
+    "pages/admin-users/index",
+    "pages/admin-orders/index"
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FF6B35",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/order-list/index",
+        "text": "订单",
+        "iconPath": "images/icons/goods.png",
+        "selectedIconPath": "images/icons/goods-active.png"
+      },
+      {
+        "pagePath": "pages/delivery-hall/index",
+        "text": "接单",
+        "iconPath": "images/icons/business.png",
+        "selectedIconPath": "images/icons/business-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "images/icons/usercenter.png",
+        "selectedIconPath": "images/icons/usercenter-active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundColor": "#F5F5F5",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FF6B35",
+    "navigationBarTitleText": "校园食递",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

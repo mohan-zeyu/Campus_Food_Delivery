@@ -1,0 +1,13 @@
+/* pages/delivery-history/index.wxss */
+.delivery-history-page { padding-bottom: 40rpx; }
+.earnings-banner {
+  background: linear-gradient(135deg, #FF6B35, #E55A28);
+  padding: 60rpx 32rpx;
+  text-align: center; color: #FFF;
+}
+.earn-label { font-size: 28rpx; opacity: 0.8; margin-bottom: 16rpx; }
+.earn-amount { font-size: 72rpx; font-weight: 700; }
+.earn-count { margin-top: 12rpx; opacity: 0.8; }
+.history-card { margin: 16rpx; }
+.earn-fee { font-size: 32rpx; }
+.empty-state { text-align: center; padding-top: 160rpx; }

@@ -1,0 +1,33 @@
+<!--pages/admin-dashboard/index.wxml-->
+<view class="admin-dashboard-page" wx:if="{{!loading && stats}}">
+  <view class="stats-banner">
+    <view class="stats-title">今日概览</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <view class="stat-num">{{stats.todayOrders}}</view>
+        <view class="stat-label">今日订单</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">¥{{stats.todayRevenue/100}}</view>
+        <view class="stat-label">今日营收</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.activeMerchants}}</view>
+        <view class="stat-label">营业商家</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.activeDelivery}}</view>
+        <view class="stat-label">配送员</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-group card">
+    <view class="menu-item row-between" bindtap="onUsers"><view>👥 用户管理</view><view>›</view></view>
+    <view class="divider"></view>
+    <view class="menu-item row-between" bindtap="onMerchants"><view>🏪 商家管理</view><view>›</view></view>
+    <view class="divider"></view>
+    <view class="menu-item row-between" bindtap="onOrders"><view>📋 订单管理</view><view>›</view></view>
+  </view>
+</view>
+<view wx:else class="loading-wrap">加载中...</view>

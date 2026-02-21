@@ -1,0 +1,28 @@
+<!--pages/review/index.wxml-->
+<view class="review-page">
+  <view class="review-card card">
+    <view class="review-label text-bold mb-16">总体评分</view>
+    <view class="stars-row row">
+      <view wx:for="{{stars}}" wx:key="*this"
+        class="star {{score >= item ? 'filled' : ''}}"
+        data-score="{{item}}" bindtap="onStarTap">★</view>
+    </view>
+  </view>
+
+  <view class="review-card card">
+    <view class="review-label text-bold mb-16">评价内容</view>
+    <textarea class="review-textarea"
+      placeholder="分享你的用餐体验..."
+      value="{{content}}"
+      bindinput="onContentInput"
+      maxlength="500"/>
+    <view class="ai-btn row" bindtap="onAiDraft">
+      <view class="ai-icon">✨</view>
+      <view class="ai-text text-primary text-sm">{{aiLoading ? 'AI生成中...' : 'AI帮我写'}}</view>
+    </view>
+  </view>
+
+  <view class="submit-wrap">
+    <button class="submit-btn btn-primary" loading="{{submitting}}" bindtap="onSubmit">提交评价</button>
+  </view>
+</view>

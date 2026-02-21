@@ -1,0 +1,25 @@
+/* pages/order-list/index.wxss */
+.order-list-page { padding-bottom: 40rpx; }
+
+.tab-bar {
+  white-space: nowrap;
+  background: #FFFFFF;
+  padding: 0 16rpx;
+  position: sticky; top: 0; z-index: 10;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.tab-item {
+  display: inline-block;
+  padding: 24rpx 20rpx;
+  font-size: 26rpx;
+  color: #666;
+  border-bottom: 4rpx solid transparent;
+}
+.tab-item.active { color: #FF6B35; border-bottom-color: #FF6B35; font-weight: 600; }
+
+.order-card { margin: 16rpx; }
+.merchant-name { font-size: 30rpx; }
+.status-text { font-size: 26rpx; }
+.order-no { font-size: 22rpx; }
+.price { color: #FF6B35; font-weight: 700; font-size: 32rpx; }
+.empty-state { text-align: center; padding-top: 160rpx; }

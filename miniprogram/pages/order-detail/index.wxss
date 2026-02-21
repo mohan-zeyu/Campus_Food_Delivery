@@ -1,0 +1,28 @@
+/* pages/order-detail/index.wxss */
+.order-detail-page { padding-bottom: 160rpx; }
+.status-header {
+  background: #FF6B35;
+  padding: 48rpx 32rpx;
+  color: #FFFFFF;
+}
+.status-text { font-size: 40rpx; font-weight: 700; margin-bottom: 12rpx; }
+.order-no { color: rgba(255,255,255,0.8); }
+.info-card { margin: 16rpx; }
+.card-title { font-size: 28rpx; font-weight: 600; color: #333; margin-bottom: 20rpx; }
+.order-item { padding: 16rpx 0; border-bottom: 2rpx solid #EEEEEE; align-items: flex-start; }
+.order-item:last-child { border-bottom: none; }
+.item-img { width: 80rpx; height: 80rpx; border-radius: 8rpx; margin-right: 16rpx; flex-shrink: 0; }
+.item-name { font-size: 28rpx; margin-bottom: 4rpx; }
+.item-qty { margin: 0 16rpx; font-size: 26rpx; }
+.item-price { color: #FF6B35; font-weight: 600; }
+.fee-row { padding: 10rpx 0; }
+.price { color: #FF6B35; font-weight: 700; }
+.action-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #FFF; padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom));
+  display: flex; gap: 20rpx;
+  box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.06);
+}
+.action-btn { flex: 1; text-align: center; padding: 24rpx 0; border-radius: 40rpx; font-size: 30rpx; font-weight: 600; }
+.btn-primary { background: #FF6B35; color: #FFF; }
+.btn-secondary { background: #FFF; color: #FF6B35; border: 2rpx solid #FF6B35; }

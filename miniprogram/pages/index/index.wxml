@@ -1,0 +1,58 @@
+<!--pages/index/index.wxml-->
+<view class="index-page">
+
+  <!-- 搜索栏 -->
+  <view class="search-bar" bindtap="onSearch">
+    <view class="search-icon">🔍</view>
+    <view class="search-placeholder">搜索餐厅或菜品...</view>
+  </view>
+
+  <!-- 公告轮播 -->
+  <swiper wx:if="{{notices.length > 0}}"
+    class="notice-swiper" autoplay circular
+    bindchange="onNoticeChange">
+    <swiper-item wx:for="{{notices}}" wx:key="_id">
+      <view class="notice-item">
+        <view class="notice-type">{{item.type === 'promotion' ? '优惠' : item.type === 'system' ? '系统' : '公告'}}</view>
+        <view class="notice-title">{{item.title}}</view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 分区筛选 -->
+  <scroll-view class="zone-bar" scroll-x>
+    <view wx:for="{{zones}}" wx:key="value"
+      class="zone-item {{selectedZone === item.value ? 'active' : ''}}"
+      bindtap="onZoneChange" data-index="{{index}}">
+      {{item.label}}
+    </view>
+  </scroll-view>
+
+  <!-- 商家列表 -->
+  <view class="merchant-list">
+    <view wx:if="{{loading && merchants.length === 0}}" class="loading-wrap">加载中...</view>
+    <view wx:elif="{{!loading && merchants.length === 0}}" class="empty-tip">
+      暂无商家，敬请期待
+    </view>
+    <view wx:for="{{merchants}}" wx:key="_id"
+      class="merchant-card" bindtap="onMerchantTap" data-id="{{item._id}}">
+      <image class="merchant-cover" src="{{item.cover_image}}" mode="aspectFill"/>
+      <view class="merchant-info">
+        <view class="merchant-name">{{item.name}}</view>
+        <view class="merchant-meta row">
+          <view class="rating">⭐ {{item.avg_rating}}</view>
+          <view class="dot">·</view>
+          <view class="location">{{item.location}}</view>
+        </view>
+        <view class="merchant-bottom row-between">
+          <view class="min-order text-secondary text-sm">起送 ¥{{item.min_order/100}}</view>
+          <view class="status-tag {{item.status === 'open' ? 'open' : 'closed'}}">
+            {{item.status === 'open' ? '营业中' : '已打烊'}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{!hasMore && merchants.length > 0}}" class="no-more">没有更多了</view>
+  </view>
+
+</view>

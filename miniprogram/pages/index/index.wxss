@@ -1,0 +1,104 @@
+/* pages/index/index.wxss */
+.index-page { padding-bottom: 120rpx; }
+
+/* 搜索栏 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  margin: 24rpx 24rpx 0;
+  border-radius: 40rpx;
+  padding: 20rpx 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+}
+.search-icon { font-size: 32rpx; margin-right: 16rpx; }
+.search-placeholder { color: #BBBBBB; font-size: 28rpx; }
+
+/* 公告轮播 */
+.notice-swiper {
+  height: 72rpx;
+  margin: 20rpx 24rpx 0;
+  background: #FFF8E8;
+  border-radius: 12rpx;
+}
+.notice-item {
+  display: flex;
+  align-items: center;
+  height: 72rpx;
+  padding: 0 24rpx;
+}
+.notice-type {
+  background: #FFA500;
+  color: #FFFFFF;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  margin-right: 16rpx;
+  white-space: nowrap;
+}
+.notice-title {
+  font-size: 26rpx;
+  color: #666666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 分区筛选 */
+.zone-bar {
+  white-space: nowrap;
+  padding: 20rpx 24rpx;
+}
+.zone-item {
+  display: inline-block;
+  padding: 12rpx 28rpx;
+  background: #FFFFFF;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+  color: #666666;
+  margin-right: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.zone-item.active {
+  background: #FF6B35;
+  color: #FFFFFF;
+}
+
+/* 商家卡片 */
+.merchant-list { padding: 0 24rpx; }
+.merchant-card {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+}
+.merchant-cover {
+  width: 100%;
+  height: 280rpx;
+}
+.merchant-info { padding: 20rpx 24rpx; }
+.merchant-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 12rpx;
+}
+.merchant-meta {
+  font-size: 24rpx;
+  color: #999999;
+  margin-bottom: 16rpx;
+}
+.rating { color: #FFA500; }
+.dot { margin: 0 12rpx; }
+.status-tag {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+.status-tag.open { color: #07C160; background: #E8F9EF; }
+.status-tag.closed { color: #999999; background: #F5F5F5; }
+
+.empty-tip { text-align: center; padding: 80rpx; color: #999999; }

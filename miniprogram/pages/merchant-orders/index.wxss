@@ -1,0 +1,7 @@
+/* pages/merchant-orders/index.wxss */
+.merchant-orders-page { padding: 16rpx; }
+.order-card { margin-bottom: 16rpx; }
+.status { }
+.price { color: #FF6B35; font-weight: 700; font-size: 32rpx; }
+.confirm-btn { background: #FF6B35; color: #FFF; padding: 12rpx 32rpx; border-radius: 40rpx; font-size: 26rpx; }
+.empty-state { text-align: center; padding-top: 160rpx; }

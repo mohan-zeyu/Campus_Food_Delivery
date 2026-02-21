@@ -1,0 +1,45 @@
+<!--pages/search/index.wxml-->
+<view class="search-page">
+  <!-- 搜索栏 -->
+  <view class="search-bar row">
+    <input class="search-input flex-1"
+      placeholder="{{aiMode ? '用自然语言描述想吃的...' : '搜索菜品'}}"
+      value="{{keyword}}"
+      bindinput="onKeywordInput"
+      bindconfirm="onSearch"/>
+    <view class="search-btn" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- AI 模式切换 -->
+  <view class="mode-bar row-between">
+    <view class="mode-label text-secondary text-sm">
+      {{aiMode ? '✨ AI智能搜索模式' : '普通搜索模式'}}
+    </view>
+    <view class="mode-toggle text-primary text-sm" bindtap="onToggleMode">
+      切换为{{aiMode ? '普通' : 'AI'}}模式
+    </view>
+  </view>
+
+  <!-- AI 理解摘要 -->
+  <view class="ai-summary card" wx:if="{{aiSummary}}">
+    <view class="text-sm text-secondary">✨ AI理解：{{aiSummary}}</view>
+  </view>
+
+  <!-- 结果 -->
+  <view wx:if="{{loading}}" class="loading-wrap">搜索中...</view>
+  <view wx:elif="{{searched && results.length === 0}}" class="empty-state">
+    <view style="font-size:80rpx">🔍</view>
+    <view class="text-secondary mt-16">没有找到相关商品</view>
+  </view>
+  <view wx:else>
+    <view class="product-item card row" wx:for="{{results}}" wx:key="_id"
+      bindtap="onProductTap" data-id="{{item._id}}" data-merchant-id="{{item.merchant_id}}">
+      <image class="product-img" src="{{item.images[0]}}" mode="aspectFill"/>
+      <view class="product-info flex-1">
+        <view class="product-name text-bold">{{item.name}}</view>
+        <view class="product-cat text-secondary text-sm mt-8">{{item.category}}</view>
+        <view class="product-price price mt-8">¥{{item.price/100}}</view>
+      </view>
+    </view>
+  </view>
+</view>

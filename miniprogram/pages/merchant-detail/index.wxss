@@ -1,0 +1,117 @@
+/* pages/merchant-detail/index.wxss */
+.merchant-detail-page { padding-bottom: 140rpx; }
+.cover { width: 100%; height: 320rpx; display: block; }
+
+.info-card { margin: 16rpx; }
+.rating { color: #FFA500; font-size: 26rpx; }
+.dot { margin: 0 12rpx; color: #BBBBBB; }
+
+.product-container {
+  display: flex;
+  height: calc(100vh - 520rpx);
+}
+.category-list {
+  width: 180rpx;
+  background: #F5F5F5;
+  flex-shrink: 0;
+}
+.cat-item {
+  padding: 28rpx 16rpx;
+  font-size: 26rpx;
+  color: #666666;
+  text-align: center;
+  border-left: 6rpx solid transparent;
+}
+.cat-item.active {
+  background: #FFFFFF;
+  color: #FF6B35;
+  border-left-color: #FF6B35;
+  font-weight: 600;
+}
+.product-list { flex: 1; overflow: hidden; }
+.cat-header {
+  padding: 16rpx 24rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #999999;
+  background: #F5F5F5;
+}
+.product-item {
+  display: flex;
+  padding: 24rpx;
+  background: #FFFFFF;
+  border-bottom: 2rpx solid #EEEEEE;
+}
+.product-img {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 12rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.product-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 8rpx;
+}
+.product-tags { margin-bottom: 8rpx; }
+.product-bottom { margin-top: auto; }
+.price { color: #FF6B35; font-weight: 700; font-size: 28rpx; }
+.price-num { font-size: 36rpx; }
+.add-btn {
+  width: 56rpx;
+  height: 56rpx;
+  background: #FF6B35;
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  font-weight: 300;
+}
+
+/* 购物车悬浮条 */
+.cart-bar {
+  position: fixed;
+  bottom: calc(100rpx + env(safe-area-inset-bottom));
+  left: 24rpx;
+  right: 24rpx;
+  background: #333333;
+  border-radius: 60rpx;
+  display: flex;
+  align-items: center;
+  padding: 16rpx 16rpx 16rpx 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.3);
+  z-index: 100;
+}
+.cart-icon-wrap {
+  position: relative;
+  font-size: 48rpx;
+  margin-right: 20rpx;
+}
+.cart-badge {
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  background: #FF6B35;
+  color: #FFFFFF;
+  font-size: 18rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6rpx;
+}
+.cart-total { color: #FFFFFF; font-size: 32rpx; font-weight: 600; }
+.cart-go {
+  background: #FF6B35;
+  color: #FFFFFF;
+  border-radius: 40rpx;
+  padding: 16rpx 32rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}

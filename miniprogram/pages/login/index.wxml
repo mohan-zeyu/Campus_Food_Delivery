@@ -1,0 +1,14 @@
+<!--pages/login/index.wxml-->
+<view class="login-page">
+  <view class="logo-area">
+    <view class="logo-icon">🍱</view>
+    <view class="app-name">校园食递</view>
+    <view class="app-slogan">好吃的，送到你身边</view>
+  </view>
+  <view class="login-area">
+    <button class="login-btn" bindtap="onLogin" loading="{{loading}}">
+      微信一键登录
+    </button>
+    <view class="login-tip">登录即同意《用户服务协议》</view>
+  </view>
+</view>

@@ -1,0 +1,15 @@
+/* pages/delivery-hall/index.wxss */
+.delivery-hall-page { padding-bottom: 40rpx; }
+.hall-header {
+  background: #FF6B35;
+  padding: 32rpx;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-title { font-size: 36rpx; font-weight: 700; color: #FFF; }
+.order-count { color: rgba(255,255,255,0.8); }
+.order-card { margin: 16rpx; }
+.merchant-name { font-size: 30rpx; }
+.earn-fee { font-size: 32rpx; }
+.accept-btn { color: #FF6B35; font-size: 28rpx; font-weight: 600; }
+.empty-state { text-align: center; padding-top: 160rpx; }
+.not-delivery { padding: 40rpx 32rpx; }

@@ -1,0 +1,37 @@
+<!--pages/product-detail/index.wxml-->
+<view class="product-detail-page" wx:if="{{!loading}}">
+  <swiper class="img-swiper" indicator-dots circular>
+    <swiper-item wx:for="{{product.images}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill" class="product-img"/>
+    </swiper-item>
+  </swiper>
+
+  <view class="info-card card">
+    <view class="product-name text-xl text-bold">{{product.name}}</view>
+    <view class="price-row row-between mt-8">
+      <view class="price">¥<text class="price-num">{{product.price/100}}</text></view>
+      <view class="quantity-ctrl row">
+        <view class="qty-btn minus" bindtap="onQuantityMinus">−</view>
+        <view class="qty-num">{{quantity}}</view>
+        <view class="qty-btn plus" bindtap="onQuantityPlus">+</view>
+      </view>
+    </view>
+    <view class="tags mt-16">
+      <text wx:for="{{product.tags}}" wx:key="*this" class="tag">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="remarks-card card">
+    <view class="text-bold mb-8">口味备注</view>
+    <input class="remarks-input" placeholder="少辣、不要葱...（选填）"
+      value="{{remarks}}" bindinput="onRemarksInput" maxlength="50"/>
+  </view>
+
+  <view class="footer-bar">
+    <view class="total-price">
+      合计 <text class="price">¥{{(product.price * quantity / 100).toFixed(2)}}</text>
+    </view>
+    <view class="add-btn btn-primary" bindtap="onAddToCart">加入购物车</view>
+  </view>
+</view>
+<view wx:else class="loading-wrap">加载中...</view>

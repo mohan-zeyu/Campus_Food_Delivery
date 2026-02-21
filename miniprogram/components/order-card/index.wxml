@@ -1,0 +1,12 @@
+<!--components/order-card/index.wxml-->
+<view class="order-card" bindtap="onTap">
+  <view class="order-head row-between">
+    <view class="merchant-name text-bold">{{order.merchant_name}}</view>
+    <view class="status text-primary text-sm">{{order.statusLabel}}</view>
+  </view>
+  <view class="order-no text-secondary text-xs mt-8">{{order.order_no}}</view>
+  <view class="order-foot row-between mt-16">
+    <view class="text-secondary text-sm">合计</view>
+    <view class="total price">¥{{order.total_amount/100}}</view>
+  </view>
+</view>

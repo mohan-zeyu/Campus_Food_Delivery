@@ -1,0 +1,12 @@
+/* pages/address-edit/index.wxss */
+.addr-edit-page { padding: 16rpx; }
+.form-card { padding: 0 24rpx; }
+.form-row {
+  display: flex; align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 2rpx solid #EEEEEE;
+}
+.form-label { width: 140rpx; font-size: 28rpx; color: #333; flex-shrink: 0; }
+.form-input { font-size: 28rpx; color: #333; text-align: right; }
+.picker-val { font-size: 28rpx; }
+.default-row { margin-top: 16rpx; }

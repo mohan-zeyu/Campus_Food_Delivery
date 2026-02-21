@@ -1,0 +1,18 @@
+<!--components/merchant-card/index.wxml-->
+<view class="merchant-card" bindtap="onTap">
+  <image class="cover" src="{{merchant.cover_image}}" mode="aspectFill"/>
+  <view class="info">
+    <view class="name text-bold">{{merchant.name}}</view>
+    <view class="meta row mt-8">
+      <view class="rating text-sm">⭐ {{merchant.avg_rating}}</view>
+      <view class="dot">·</view>
+      <view class="location text-sm text-secondary">{{merchant.location}}</view>
+    </view>
+    <view class="bottom row-between mt-8">
+      <view class="min-order text-secondary text-sm">起送 ¥{{merchant.min_order/100}}</view>
+      <view class="status-badge {{merchant.status === 'open' ? 'open' : 'closed'}}">
+        {{merchant.status === 'open' ? '营业中' : '已打烊'}}
+      </view>
+    </view>
+  </view>
+</view>

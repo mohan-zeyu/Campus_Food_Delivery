@@ -1,0 +1,60 @@
+<!--pages/profile/index.wxml-->
+<view class="profile-page">
+
+  <!-- 用户信息 -->
+  <view class="user-header">
+    <image class="avatar" src="{{userInfo.avatar_url || '/images/icons/avatar.png'}}" mode="aspectFill"/>
+    <view class="user-info">
+      <view class="nickname text-bold">{{userInfo.nickname || '校园食递用户'}}</view>
+      <view class="role-tag">
+        {{role === 'admin' ? '管理员' : role === 'merchant' ? '商家' : role === 'delivery' ? '配送员' : '普通用户'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 菜单列表 -->
+  <view class="menu-group card">
+    <view class="menu-item row-between" bindtap="onAddressList">
+      <view class="menu-label">📍 收货地址</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+    <view class="divider"></view>
+    <view class="menu-item row-between" bindtap="onMyOrders">
+      <view class="menu-label">📋 我的订单</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+  </view>
+
+  <!-- 配送员菜单 -->
+  <view class="menu-group card" wx:if="{{role === 'delivery'}}">
+    <view class="menu-item row-between" bindtap="onDeliveryHistory">
+      <view class="menu-label">💰 配送收益</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+  </view>
+
+  <!-- 商家菜单 -->
+  <view class="menu-group card" wx:if="{{role === 'merchant'}}">
+    <view class="menu-item row-between" bindtap="onMerchantDashboard">
+      <view class="menu-label">🏪 商家后台</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+  </view>
+
+  <!-- 管理员菜单 -->
+  <view class="menu-group card" wx:if="{{role === 'admin'}}">
+    <view class="menu-item row-between" bindtap="onAdminDashboard">
+      <view class="menu-label">⚙️ 管理后台</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+  </view>
+
+  <!-- 申请配送员 -->
+  <view class="menu-group card" wx:if="{{role === 'user'}}">
+    <view class="menu-item row-between" bindtap="onApplyDelivery">
+      <view class="menu-label">🛵 申请成为配送员</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+  </view>
+
+</view>

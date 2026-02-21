@@ -1,0 +1,21 @@
+<!--pages/merchant-product-edit/index.wxml-->
+<view class="product-edit-page">
+  <view class="form-card card">
+    <view class="form-row"><view class="label">商品名称*</view><input class="input flex-1" placeholder="请输入" value="{{form.name}}" data-field="name" bindinput="onInput"/></view>
+    <view class="form-row">
+      <view class="label">分类*</view>
+      <picker mode="selector" range="{{categories}}" bindchange="onCategoryChange">
+        <view class="picker-val text-secondary">{{form.category}} ▾</view>
+      </picker>
+    </view>
+    <view class="form-row"><view class="label">价格(元)*</view><input class="input flex-1" type="digit" placeholder="0.00" value="{{form.price}}" data-field="price" bindinput="onInput"/></view>
+    <view class="form-row"><view class="label">包装费(元)</view><input class="input flex-1" type="digit" placeholder="0.00" value="{{form.packaging_fee}}" data-field="packaging_fee" bindinput="onInput"/></view>
+    <view class="form-row"><view class="label">库存(-1无限)</view><input class="input flex-1" type="number" value="{{form.inventory}}" data-field="inventory" bindinput="onInput"/></view>
+    <view class="form-row" style="border:none"><view class="label">标签(逗号分隔)</view><input class="input flex-1" placeholder="辣,低热量" value="{{form.tags}}" data-field="tags" bindinput="onInput"/></view>
+  </view>
+  <view class="form-card card row-between">
+    <view>是否上架</view>
+    <switch checked="{{form.is_available}}" color="#FF6B35" bindchange="onAvailableToggle"/>
+  </view>
+  <view class="save-btn" bindtap="onSave">保存商品</view>
+</view>

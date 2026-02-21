@@ -1,0 +1,26 @@
+<!--pages/delivery-history/index.wxml-->
+<view class="delivery-history-page">
+  <view class="earnings-banner">
+    <view class="earn-label">累计收益</view>
+    <view class="earn-amount">¥{{earnings.total/100}}</view>
+    <view class="earn-count text-sm">共完成 {{earnings.count}} 单</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-wrap">加载中...</view>
+  <view wx:elif="{{history.length === 0}}" class="empty-state">
+    <view style="font-size:80rpx">📦</view>
+    <view class="text-secondary mt-16">暂无配送记录</view>
+  </view>
+  <view wx:else>
+    <view class="history-card card" wx:for="{{history}}" wx:key="_id">
+      <view class="row-between">
+        <view class="text-bold">订单 #{{item.order_id.slice(-6)}}</view>
+        <view class="earn-fee text-primary text-bold">+¥{{item.delivery_fee_earned/100}}</view>
+      </view>
+      <view class="row-between mt-8">
+        <view class="status text-secondary text-sm">{{item.status}}</view>
+        <view class="time text-secondary text-sm">{{item.accepted_at}}</view>
+      </view>
+    </view>
+  </view>
+</view>

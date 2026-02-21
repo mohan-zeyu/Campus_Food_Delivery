@@ -1,0 +1,67 @@
+<!--pages/merchant-detail/index.wxml-->
+<view class="merchant-detail-page" wx:if="{{!loading}}">
+
+  <!-- 商家头图 -->
+  <image class="cover" src="{{merchant.cover_image}}" mode="aspectFill"/>
+
+  <!-- 商家信息 -->
+  <view class="info-card card">
+    <view class="name text-xl text-bold">{{merchant.name}}</view>
+    <view class="row mt-8">
+      <view class="rating">⭐ {{merchant.avg_rating}} ({{merchant.rating_count}}评)</view>
+      <view class="dot">·</view>
+      <view class="location text-secondary">{{merchant.location}}</view>
+    </view>
+    <view class="row mt-8 text-sm text-secondary">
+      <view>营业 {{merchant.operating_hours.open}}-{{merchant.operating_hours.close}}</view>
+      <view class="dot">·</view>
+      <view>起送 ¥{{merchant.min_order/100}}</view>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="product-container">
+    <!-- 左侧分类 -->
+    <scroll-view class="category-list" scroll-y>
+      <view wx:for="{{categories}}" wx:key="name"
+        class="cat-item {{activeCategory === item.name ? 'active' : ''}}"
+        data-name="{{item.name}}" bindtap="onCategoryTap">
+        {{item.name}}
+      </view>
+    </scroll-view>
+
+    <!-- 右侧商品 -->
+    <scroll-view class="product-list" scroll-y>
+      <view wx:for="{{categories}}" wx:key="name"
+        wx:if="{{activeCategory === item.name || activeCategory === ''}}">
+        <view class="cat-header">{{item.name}}</view>
+        <view wx:for="{{item.products}}" wx:for-item="p" wx:key="_id"
+          class="product-item" bindtap="onProductTap" data-id="{{p._id}}">
+          <image class="product-img" src="{{p.images[0]}}" mode="aspectFill"/>
+          <view class="product-info flex-1">
+            <view class="product-name">{{p.name}}</view>
+            <view class="product-tags">
+              <text wx:for="{{p.tags}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>
+            </view>
+            <view class="product-bottom row-between">
+              <view class="price">¥<text class="price-num">{{p.price/100}}</text></view>
+              <view class="add-btn" catchtap="onAddToCart" data-product="{{p}}">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 购物车悬浮条 -->
+  <view class="cart-bar" wx:if="{{cartSummary.itemCount > 0}}" bindtap="onGoCart">
+    <view class="cart-icon-wrap">
+      🛒
+      <view class="cart-badge">{{cartSummary.itemCount}}</view>
+    </view>
+    <view class="cart-total flex-1">¥{{cartSummary.itemsTotal/100}}</view>
+    <view class="cart-go">去结算</view>
+  </view>
+
+</view>
+<view wx:else class="loading-wrap">加载中...</view>

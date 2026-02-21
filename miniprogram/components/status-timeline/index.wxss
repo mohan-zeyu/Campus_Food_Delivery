@@ -1,0 +1,29 @@
+/* components/status-timeline/index.wxss */
+.timeline { padding: 16rpx 32rpx; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 32rpx;
+}
+.step:last-child { padding-bottom: 0; }
+.step-dot {
+  width: 24rpx; height: 24rpx;
+  border-radius: 50%;
+  background: #DDDDDD;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+  margin-top: 4rpx;
+}
+.step.done .step-dot { background: #FF6B35; }
+.step-line {
+  position: absolute;
+  left: 11rpx; top: 28rpx;
+  width: 2rpx;
+  height: calc(100% - 28rpx);
+  background: #EEEEEE;
+}
+.step.done .step-line { background: #FF6B35; }
+.step-label { font-size: 28rpx; color: #333; }
+.step.pending .step-label { color: #BBBBBB; }
+.step-time { margin-top: 4rpx; }

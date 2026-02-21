@@ -1,0 +1,5 @@
+<!--components/empty-state/index.wxml-->
+<view class="empty-state">
+  <view class="empty-icon">{{icon}}</view>
+  <view class="empty-text">{{text}}</view>
+</view>

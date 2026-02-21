@@ -1,0 +1,15 @@
+<!--pages/admin-merchants/index.wxml-->
+<view class="admin-merchants-page">
+  <view wx:if="{{loading}}" class="loading-wrap">加载中...</view>
+  <view class="merchant-item card" wx:for="{{merchants}}" wx:key="_id">
+    <view class="row-between">
+      <view>
+        <view class="text-bold">{{item.name}}</view>
+        <view class="text-secondary text-sm mt-8">{{item.location}} · {{item.status}}</view>
+      </view>
+      <view class="toggle-btn text-primary text-sm" catchtap="onToggle" data-id="{{item._id}}">
+        {{item.status === 'open' ? '打烊' : '开业'}}
+      </view>
+    </view>
+  </view>
+</view>

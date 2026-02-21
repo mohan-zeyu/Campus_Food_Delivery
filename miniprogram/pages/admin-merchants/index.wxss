@@ -1,0 +1,4 @@
+/* pages/admin-merchants/index.wxss */
+.admin-merchants-page { padding: 16rpx; }
+.merchant-item { margin-bottom: 16rpx; }
+.toggle-btn { border: 2rpx solid #FF6B35; padding: 8rpx 20rpx; border-radius: 20rpx; }

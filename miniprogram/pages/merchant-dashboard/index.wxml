@@ -1,0 +1,42 @@
+<!--pages/merchant-dashboard/index.wxml-->
+<view class="merchant-dashboard-page" wx:if="{{!loading && merchant}}">
+  <view class="store-header">
+    <image class="store-cover" src="{{merchant.cover_image}}" mode="aspectFill"/>
+    <view class="store-info">
+      <view class="store-name text-bold">{{merchant.name}}</view>
+      <view class="store-status row">
+        <view class="status-dot {{merchant.status === 'open' ? 'open' : 'closed'}}"></view>
+        <view class="text-sm">{{merchant.status === 'open' ? '营业中' : '已打烊'}}</view>
+      </view>
+    </view>
+    <view class="toggle-btn text-sm" bindtap="onToggleStatus">
+      {{merchant.status === 'open' ? '打烊' : '开业'}}
+    </view>
+  </view>
+
+  <view class="quick-actions card">
+    <view class="action-item" bindtap="onProductManage">
+      <view class="action-icon">🍽️</view>
+      <view class="action-label text-sm">商品管理</view>
+    </view>
+    <view class="action-item" bindtap="onOrderManage">
+      <view class="action-icon">📋</view>
+      <view class="action-label text-sm">订单管理</view>
+    </view>
+  </view>
+
+  <view class="stats-card card">
+    <view class="stats-title text-bold mb-16">店铺数据</view>
+    <view class="stats-row row-between">
+      <view class="stat-item">
+        <view class="stat-num text-primary">{{merchant.avg_rating}}</view>
+        <view class="stat-label text-secondary text-sm">平均评分</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num text-primary">{{merchant.rating_count}}</view>
+        <view class="stat-label text-secondary text-sm">总评价数</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:else class="loading-wrap">加载中...</view>

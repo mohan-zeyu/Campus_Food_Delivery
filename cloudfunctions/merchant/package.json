@@ -1,0 +1,10 @@
+{
+  "name": "merchant",
+  "version": "1.0.0",
+  "description": "商家云函数",
+  "main": "index.js",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "~2.4.0"
+  }
+}

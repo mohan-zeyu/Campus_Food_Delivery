@@ -1,0 +1,24 @@
+<!--pages/merchant-orders/index.wxml-->
+<view class="merchant-orders-page">
+  <view wx:if="{{loading && orders.length === 0}}" class="loading-wrap">加载中...</view>
+  <view wx:elif="{{!loading && orders.length === 0}}" class="empty-state">
+    <view style="font-size:80rpx">📋</view>
+    <view class="text-secondary mt-16">暂无订单</view>
+  </view>
+  <view wx:else>
+    <view class="order-card card" wx:for="{{orders}}" wx:key="_id">
+      <view class="row-between">
+        <view class="text-bold">{{item.order_no}}</view>
+        <view class="status text-sm text-primary">{{item.statusLabel}}</view>
+      </view>
+      <view class="addr text-secondary text-sm mt-8">
+        {{item.delivery_address.building}} {{item.delivery_address.room}}
+      </view>
+      <view class="row-between mt-16">
+        <view class="price">¥{{item.total_amount/100}}</view>
+        <view wx:if="{{item.status === 'paid'}}" class="confirm-btn"
+          catchtap="onConfirm" data-id="{{item._id}}">接单备餐</view>
+      </view>
+    </view>
+  </view>
+</view>

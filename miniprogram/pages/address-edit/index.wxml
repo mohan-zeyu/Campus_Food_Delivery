@@ -1,0 +1,56 @@
+<!--pages/address-edit/index.wxml-->
+<view class="addr-edit-page">
+  <view class="form-card card">
+
+    <view class="form-row row-between">
+      <view class="form-label">标签</view>
+      <picker mode="selector" range="{{labelOptions}}" bindchange="onLabelChange">
+        <view class="picker-val text-secondary">{{form.label}} ▾</view>
+      </picker>
+    </view>
+
+    <view class="form-row row-between">
+      <view class="form-label">校区</view>
+      <picker mode="selector" range="{{zoneOptions}}" range-key="label" bindchange="onZoneChange">
+        <view class="picker-val text-secondary">
+          {{zoneOptions.find ? '' : ''}}
+          {{form.campus_zone === 'east' ? '东区' : form.campus_zone === 'west' ? '西区' : form.campus_zone === 'north' ? '北区' : '南区'}} ▾
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-row">
+      <view class="form-label">楼栋</view>
+      <input class="form-input flex-1" placeholder="如：1号宿舍楼"
+        value="{{form.building}}" data-field="building" bindinput="onInput"/>
+    </view>
+
+    <view class="form-row">
+      <view class="form-label">房间号</view>
+      <input class="form-input flex-1" placeholder="如：301"
+        value="{{form.room}}" data-field="room" bindinput="onInput"/>
+    </view>
+
+    <view class="form-row">
+      <view class="form-label">姓名</view>
+      <input class="form-input flex-1" placeholder="收货人姓名"
+        value="{{form.contact}}" data-field="contact" bindinput="onInput"/>
+    </view>
+
+    <view class="form-row" style="border:none">
+      <view class="form-label">手机号</view>
+      <input class="form-input flex-1" placeholder="手机号码" type="number"
+        value="{{form.phone}}" data-field="phone" bindinput="onInput"/>
+    </view>
+
+  </view>
+
+  <view class="default-row card row-between" bindtap="onDefaultToggle">
+    <view>设为默认地址</view>
+    <switch checked="{{form.is_default}}" color="#FF6B35"/>
+  </view>
+
+  <view class="save-btn btn-primary" style="margin:32rpx;text-align:center;padding:28rpx 0;border-radius:40rpx;font-size:32rpx;font-weight:600" bindtap="onSave">
+    保存地址
+  </view>
+</view>

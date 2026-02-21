@@ -1,0 +1,11 @@
+<!--components/status-timeline/index.wxml-->
+<view class="timeline">
+  <view class="step {{item.done ? 'done' : 'pending'}}" wx:for="{{steps}}" wx:key="label">
+    <view class="step-dot"></view>
+    <view class="step-line" wx:if="{{index < steps.length - 1}}"></view>
+    <view class="step-content">
+      <view class="step-label">{{item.label}}</view>
+      <view class="step-time text-secondary text-xs" wx:if="{{item.time}}">{{item.time}}</view>
+    </view>
+  </view>
+</view>

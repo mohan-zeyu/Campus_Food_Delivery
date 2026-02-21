@@ -1,0 +1,7 @@
+<!--components/review-stars/index.wxml-->
+<view class="stars-row {{size}}">
+  <view wx:for="{{stars}}" wx:key="*this"
+    class="star {{score >= item ? 'filled' : 'empty'}}"
+    data-score="{{item}}"
+    bindtap="onStarTap">★</view>
+</view>

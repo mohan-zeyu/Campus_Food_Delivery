@@ -1,0 +1,7 @@
+/* pages/admin-orders/index.wxss */
+.admin-orders-page { padding: 16rpx; }
+.order-item { margin-bottom: 16rpx; }
+.resolve-btn { border: 2rpx solid currentColor; padding: 8rpx 20rpx; border-radius: 20rpx; }
+.text-success { color: #07C160; }
+.text-error { color: #E54545; }
+.ml-24 { margin-left: 24rpx; }

@@ -1,0 +1,11 @@
+/* pages/merchant-products/index.wxss */
+.products-page { padding-bottom: 160rpx; }
+.product-item { margin: 16rpx; align-items: flex-start; }
+.prod-img { width: 100rpx; height: 100rpx; border-radius: 12rpx; margin-right: 20rpx; flex-shrink: 0; }
+.prod-name { font-size: 28rpx; }
+.price { color: #FF6B35; font-weight: 700; }
+.prod-actions { align-items: flex-end; }
+.add-btn-wrap { position: fixed; bottom: 0; left: 0; right: 0; padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom)); background: #FFF; }
+.add-btn { background: #FF6B35; color: #FFF; text-align: center; border-radius: 40rpx; padding: 24rpx 0; font-size: 30rpx; font-weight: 600; }
+.empty-state { text-align: center; padding-top: 160rpx; }
+.text-success { color: #07C160; }

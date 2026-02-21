@@ -1,0 +1,14 @@
+<!--components/address-item/index.wxml-->
+<view class="address-item {{selected ? 'selected' : ''}}" bindtap="onTap">
+  <view class="addr-main flex-1">
+    <view class="addr-top row">
+      <view class="tag">{{address.label}}</view>
+      <view class="default-badge" wx:if="{{address.is_default}}">默认</view>
+    </view>
+    <view class="addr-location mt-8 text-bold">{{address.building}} {{address.room}}</view>
+    <view class="addr-contact text-secondary text-sm mt-4">{{address.contact}} {{address.phone}}</view>
+  </view>
+  <view class="addr-actions">
+    <view class="action-btn text-secondary text-sm" catchtap="onEdit">编辑</view>
+  </view>
+</view>

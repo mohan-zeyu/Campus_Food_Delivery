@@ -1,0 +1,7 @@
+/* components/review-stars/index.wxss */
+.stars-row { display: flex; }
+.star { color: #DDDDDD; }
+.star.filled { color: #FFA500; }
+.small .star { font-size: 28rpx; margin-right: 4rpx; }
+.medium .star { font-size: 48rpx; margin-right: 8rpx; }
+.large .star { font-size: 64rpx; margin-right: 12rpx; }
