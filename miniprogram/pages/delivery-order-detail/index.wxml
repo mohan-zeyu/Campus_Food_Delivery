@@ -26,6 +26,22 @@
     </view>
   </view>
 
+  <!-- 送达凭证 -->
+  <view class="proof-card card" wx:if="{{order.status === 'in_transit' || (order.status === 'delivered' && proofImage)}}">
+    <view class="card-title">送达凭证</view>
+
+    <block wx:if="{{proofImage}}">
+      <view class="proof-img-wrap">
+        <image class="proof-img" src="{{proofImage}}" mode="aspectFill" bindtap="onPreviewProof" />
+      </view>
+      <view class="proof-retake" bindtap="onChooseProof" wx:if="{{order.status === 'in_transit'}}">重新拍摄</view>
+    </block>
+
+    <block wx:elif="{{order.status === 'in_transit'}}">
+      <button class="proof-btn" bindtap="onChooseProof">📷 拍摄送达凭证</button>
+    </block>
+  </view>
+
   <!-- 操作按钮 -->
   <view class="action-bar">
     <button wx:if="{{order.status === 'paid'}}"

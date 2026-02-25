@@ -10,6 +10,8 @@ Page({
     merchantInfo: null,
     deliveryFee: 0,
     summary: { itemCount: 0, itemsTotal: 0, packagingFee: 0 },
+    deliveryTime: '立即配送',
+    deliveryTimeOptions: ['立即配送', '11:00-11:30', '11:30-12:00', '12:00-12:30', '17:00-17:30', '17:30-18:00', '18:00-18:30'],
   },
 
   onShow() {
@@ -90,8 +92,13 @@ Page({
     wx.navigateTo({ url: '/pages/address-edit/index' });
   },
 
+  onDeliveryTimeChange(e) {
+    const index = e.detail.value;
+    this.setData({ deliveryTime: this.data.deliveryTimeOptions[index] });
+  },
+
   onCheckout() {
-    const { cartData, selectedAddress, deliveryFee, summary, merchantInfo } = this.data;
+    const { cartData, selectedAddress, deliveryFee, summary, merchantInfo, deliveryTime } = this.data;
     if (!cartData || !cartData.items || cartData.items.length === 0) {
       return wx.showToast({ title: '购物车为空', icon: 'none' });
     }
@@ -106,6 +113,7 @@ Page({
       merchantName: cartData.merchant_name,
       addressId: selectedAddress._id,
       deliveryFee,
+      deliveryTime,
     }));
     wx.navigateTo({ url: `/pages/checkout/index?p=${params}` });
   },

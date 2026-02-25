@@ -49,3 +49,5 @@
   font-size: 30rpx;
   font-weight: 600;
 }
+
+.ai-remark-btn { display: flex; align-items: center; gap: 8rpx; margin-top: 16rpx; }

@@ -26,3 +26,4 @@
 .action-btn { flex: 1; text-align: center; padding: 24rpx 0; border-radius: 40rpx; font-size: 30rpx; font-weight: 600; }
 .btn-primary { background: #FF6B35; color: #FFF; }
 .btn-secondary { background: #FFF; color: #FF6B35; border: 2rpx solid #FF6B35; }
+.btn-ghost { background: #FFF; color: #FF6B35; border: 2rpx solid #EEEEEE; }

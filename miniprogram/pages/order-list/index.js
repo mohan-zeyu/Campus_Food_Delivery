@@ -20,14 +20,15 @@ Page({
   },
 
   onLoad() {
-    this.loadOrders(true);
+    getApp().waitForLogin(() => this.loadOrders(true));
   },
 
   onShow() {
-    this.loadOrders(true);
     if (typeof this.getTabBar === 'function') {
       this.getTabBar().setData({ selected: 1 });
     }
+    // 只在已登录时刷新，避免 onLoad 未完成时重复触发
+    if (getApp().globalData.isLoaded) this.loadOrders(true);
   },
 
   onPullDownRefresh() {

@@ -25,11 +25,15 @@
     <view class="text-bold mb-8">口味备注</view>
     <input class="remarks-input" placeholder="少辣、不要葱...（选填）"
       value="{{remarks}}" bindinput="onRemarksInput" maxlength="50"/>
+    <view class="ai-remark-btn" bindtap="onAiRemark">
+      <text>✨</text>
+      <text class="text-primary text-sm">{{aiRemarkLoading ? '生成中...' : 'AI建议备注'}}</text>
+    </view>
   </view>
 
   <view class="footer-bar">
     <view class="total-price">
-      合计 <text class="price">¥{{(product.price * quantity / 100).toFixed(2)}}</text>
+      合计 <text class="price">¥{{totalStr}}</text>
     </view>
     <view class="add-btn btn-primary" bindtap="onAddToCart">加入购物车</view>
   </view>

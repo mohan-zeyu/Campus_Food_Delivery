@@ -22,6 +22,12 @@ Page({
   },
 
   onLoad() {
+    const app = getApp();
+    if (!app.globalData.isLoaded && !app.globalData.openid) {
+      // 未登录，跳转登录页
+      wx.redirectTo({ url: '/pages/login/index' });
+      return;
+    }
     this.loadMerchants(true);
   },
 

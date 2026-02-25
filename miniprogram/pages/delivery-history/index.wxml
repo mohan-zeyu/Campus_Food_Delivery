@@ -14,7 +14,7 @@
   <view wx:else>
     <view class="history-card card" wx:for="{{history}}" wx:key="_id">
       <view class="row-between">
-        <view class="text-bold">订单 #{{item.order_id.slice(-6)}}</view>
+        <view class="text-bold">订单 #{{item.shortId}}</view>
         <view class="earn-fee text-primary text-bold">+¥{{item.delivery_fee_earned/100}}</view>
       </view>
       <view class="row-between mt-8">

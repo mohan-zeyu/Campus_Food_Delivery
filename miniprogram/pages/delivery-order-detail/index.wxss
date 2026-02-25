@@ -15,3 +15,37 @@
 .action-btn { width: 100%; background: #FF6B35; color: #FFF; border-radius: 40rpx; padding: 28rpx 0; font-size: 32rpx; font-weight: 600; }
 .action-done { text-align: center; color: #07C160; font-size: 32rpx; padding: 28rpx 0; }
 .fee-card { margin: 16rpx; }
+
+/* Proof upload card */
+.proof-card {
+  margin: 16rpx;
+}
+.proof-btn {
+  width: 100%;
+  background: #FFF5F0;
+  color: #FF6B35;
+  border: 2rpx dashed #FF6B35;
+  border-radius: 16rpx;
+  padding: 32rpx 0;
+  font-size: 30rpx;
+  font-weight: 500;
+  text-align: center;
+}
+.proof-img-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.proof-img {
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 16rpx;
+  border: 2rpx solid #EFEFEF;
+}
+.proof-retake {
+  text-align: center;
+  color: #FF6B35;
+  font-size: 26rpx;
+  margin-top: 16rpx;
+  padding: 8rpx 0;
+}

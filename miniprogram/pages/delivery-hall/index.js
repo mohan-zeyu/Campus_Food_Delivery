@@ -1,7 +1,5 @@
 // pages/delivery-hall/index.js
 const api = require('../../utils/api');
-const auth = require('../../utils/auth');
-const { fenToYuanStr, formatDate } = require('../../utils/format');
 
 Page({
   data: {
@@ -10,23 +8,24 @@ Page({
     role: 'user',
   },
 
-  onLoad() {
-    const app = getApp();
-    this.setData({ role: app.globalData.role });
-  },
-
   onShow() {
     if (typeof this.getTabBar === 'function') {
       this.getTabBar().setData({ selected: 2 });
     }
-    const app = getApp();
-    const role = app.globalData.role;
-    this.setData({ role });
-    if (role === 'delivery') this.loadOrders();
+    // 等待登录完成后再检查角色，避免读到默认值 'user'
+    getApp().waitForLogin(() => {
+      const role = getApp().globalData.role;
+      this.setData({ role });
+      if (role === 'delivery') this.loadOrders();
+    });
   },
 
   onPullDownRefresh() {
-    this.loadOrders().then(() => wx.stopPullDownRefresh());
+    if (this.data.role === 'delivery') {
+      this.loadOrders().then(() => wx.stopPullDownRefresh());
+    } else {
+      wx.stopPullDownRefresh();
+    }
   },
 
   loadOrders() {
@@ -39,7 +38,4 @@ Page({
   onOrderTap(e) {
     wx.navigateTo({ url: `/pages/delivery-order-detail/index?id=${e.currentTarget.dataset.id}` });
   },
-
-  fenToYuanStr(v) { return fenToYuanStr(v); },
-  formatDate(d) { return formatDate(d); },
 });

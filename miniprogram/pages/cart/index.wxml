@@ -43,6 +43,17 @@
     <view wx:else class="add-addr-btn" bindtap="onAddAddress">+ 添加收货地址</view>
   </view>
 
+  <!-- 配送时间 -->
+  <view class="time-card card">
+    <view class="section-label text-secondary text-sm mb-8">配送时间</view>
+    <picker mode="selector" range="{{deliveryTimeOptions}}" bindchange="onDeliveryTimeChange">
+      <view class="time-picker row-between">
+        <view>{{deliveryTime}}</view>
+        <view class="text-secondary">›</view>
+      </view>
+    </picker>
+  </view>
+
   <!-- 费用明细 -->
   <view class="fee-card card">
     <view class="fee-row row-between">

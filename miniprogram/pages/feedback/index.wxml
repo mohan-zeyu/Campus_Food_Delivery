@@ -1,0 +1,36 @@
+<!--pages/feedback/index.wxml-->
+<view class="feedback-page">
+  <view class="card">
+    <view class="text-bold mb-16">反馈类型</view>
+    <picker mode="selector" range="{{types}}" value="{{typeIndex}}" bindchange="onTypeChange">
+      <view class="type-picker row-between">
+        <view>{{types[typeIndex]}}</view>
+        <view class="text-secondary">></view>
+      </view>
+    </picker>
+  </view>
+
+  <view class="card">
+    <view class="text-bold mb-16">反馈内容</view>
+    <textarea class="feedback-textarea" placeholder="请详细描述您遇到的问题..."
+      value="{{content}}" bindinput="onContentInput" maxlength="500"/>
+  </view>
+
+  <view class="card">
+    <view class="text-bold mb-16">添加图片（可选）</view>
+    <view class="image-grid">
+      <view wx:for="{{images}}" wx:key="*this" class="image-item">
+        <image class="image-thumb" src="{{item}}" mode="aspectFill"/>
+        <view class="image-delete" catchtap="onRemoveImage" data-index="{{index}}">×</view>
+      </view>
+      <view wx:if="{{images.length < 3}}" class="image-add" bindtap="onChooseImage">
+        <view class="add-icon">+</view>
+        <view class="add-text text-secondary text-xs">添加图片</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="submit-wrap">
+    <button class="submit-btn btn-primary" loading="{{submitting}}" bindtap="onSubmit">提交反馈</button>
+  </view>
+</view>

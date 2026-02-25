@@ -13,7 +13,6 @@
       <view class="form-label">校区</view>
       <picker mode="selector" range="{{zoneOptions}}" range-key="label" bindchange="onZoneChange">
         <view class="picker-val text-secondary">
-          {{zoneOptions.find ? '' : ''}}
           {{form.campus_zone === 'east' ? '东区' : form.campus_zone === 'west' ? '西区' : form.campus_zone === 'north' ? '北区' : '南区'}} ▾
         </view>
       </picker>

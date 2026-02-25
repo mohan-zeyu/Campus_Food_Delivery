@@ -59,7 +59,7 @@ Page({
       cart.clear();
       wx.showToast({ title: '下单成功！', icon: 'success' });
       setTimeout(() => {
-        wx.redirectTo({ url: '/pages/order-list/index' });
+        wx.switchTab({ url: '/pages/order-list/index' });
       }, 1500);
     }).catch(() => {
       this.setData({ submitting: false });

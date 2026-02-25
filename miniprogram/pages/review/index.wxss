@@ -15,3 +15,47 @@
 .ai-icon { font-size: 28rpx; margin-right: 8rpx; }
 .submit-wrap { padding: 32rpx 0; }
 .submit-btn { width: 100%; background: #FF6B35; color: #FFF; border-radius: 40rpx; padding: 28rpx 0; font-size: 32rpx; font-weight: 600; }
+
+/* Image upload section */
+.image-section { }
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.image-item {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+.image-thumb {
+  width: 100%;
+  height: 100%;
+}
+.image-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48rpx;
+  height: 48rpx;
+  background: rgba(0, 0, 0, 0.5);
+  color: #FFF;
+  font-size: 32rpx;
+  line-height: 48rpx;
+  text-align: center;
+  border-bottom-left-radius: 12rpx;
+}
+.image-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F5F5F5;
+  border: 2rpx dashed #CCCCCC;
+}
+.image-add-icon {
+  font-size: 72rpx;
+  color: #CCCCCC;
+  line-height: 1;
+}

@@ -22,6 +22,19 @@
     </view>
   </view>
 
+  <view class="review-card card image-section">
+    <view class="review-label text-bold mb-16">添加图片（可选）</view>
+    <view class="image-grid">
+      <view class="image-item" wx:for="{{images}}" wx:key="*this">
+        <image class="image-thumb" src="{{item}}" mode="aspectFill"/>
+        <view class="image-delete" data-index="{{index}}" catchtap="onRemoveImage">×</view>
+      </view>
+      <view class="image-item image-add" wx:if="{{images.length < 3}}" bindtap="onChooseImage">
+        <view class="image-add-icon">+</view>
+      </view>
+    </view>
+  </view>
+
   <view class="submit-wrap">
     <button class="submit-btn btn-primary" loading="{{submitting}}" bindtap="onSubmit">提交评价</button>
   </view>

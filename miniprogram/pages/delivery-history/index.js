@@ -24,8 +24,12 @@ Page({
       api.call('delivery', 'getHistory', { page: 0 }),
       api.call('delivery', 'getEarnings'),
     ]).then(([histRes, earnRes]) => {
+      const history = (histRes.data || []).map(d => ({
+        ...d,
+        shortId: d.order_id ? d.order_id.slice(-6) : '------',
+      }));
       this.setData({
-        history: histRes.data || [],
+        history,
         earnings: { total: earnRes.total || 0, count: earnRes.count || 0 },
         hasMore: histRes.hasMore,
         page: 1,

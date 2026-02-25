@@ -9,6 +9,7 @@ Page({
     canCancel: false,
     canConfirm: false,
     canReview: false,
+    canRush: false,
   },
 
   onLoad(options) {
@@ -39,6 +40,7 @@ Page({
         canCancel: ['pending', 'paid'].includes(o.status),
         canConfirm: o.status === 'delivered',
         canReview: o.status === 'completed' && !o.is_reviewed,
+        canRush: ['accepted', 'picking_up', 'in_transit'].includes(o.status),
         loading: false,
       });
     }).catch(() => this.setData({ loading: false }));
@@ -69,6 +71,18 @@ Page({
   onReview() {
     wx.navigateTo({
       url: `/pages/review/index?orderId=${this.orderId}&merchantId=${this.data.order.merchant_id}`,
+    });
+  },
+
+  onRushOrder() {
+    wx.showModal({
+      title: '催单',
+      content: '催单将提醒配送员加快配送',
+      success: res => {
+        if (res.confirm) {
+          wx.showToast({ title: '已催单，配送员会尽快送达', icon: 'none' });
+        }
+      },
     });
   },
 });
