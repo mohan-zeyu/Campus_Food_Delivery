@@ -25,7 +25,10 @@
     "pages/admin-users/index",
     "pages/admin-orders/index",
     "pages/admin-notices/index",
-    "pages/feedback/index"
+    "pages/feedback/index",
+    "pages/delivery-orders/index",
+    "pages/create-task/index",
+    "pages/task-detail/index"
   ],
   "tabBar": {
     "color": "#999999",
@@ -47,7 +50,7 @@
       },
       {
         "pagePath": "pages/delivery-hall/index",
-        "text": "接单",
+        "text": "服务",
         "iconPath": "images/icons/business.png",
         "selectedIconPath": "images/icons/business-active.png"
       },

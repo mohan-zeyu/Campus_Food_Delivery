@@ -7,7 +7,7 @@
     <view class="user-info">
       <view class="nickname text-bold">{{userInfo.nickname || '校园食递用户'}}</view>
       <view class="role-tag">
-        {{role === 'admin' ? '管理员' : role === 'merchant' ? '商家' : role === 'delivery' ? '配送员' : '普通用户'}}
+        {{role === 'admin' ? '管理员' : role === 'merchant' ? '商家' : '普通用户'}}
       </view>
     </view>
   </view>
@@ -25,8 +25,8 @@
     </view>
   </view>
 
-  <!-- 配送员菜单 -->
-  <view class="menu-group card" wx:if="{{role === 'delivery'}}">
+  <!-- 配送收益（所有用户可见） -->
+  <view class="menu-group card">
     <view class="menu-item row-between" bindtap="onDeliveryHistory">
       <view class="menu-label">💰 配送收益</view>
       <view class="menu-arrow text-secondary">›</view>
@@ -45,14 +45,6 @@
   <view class="menu-group card" wx:if="{{role === 'admin'}}">
     <view class="menu-item row-between" bindtap="onAdminDashboard">
       <view class="menu-label">⚙️ 管理后台</view>
-      <view class="menu-arrow text-secondary">›</view>
-    </view>
-  </view>
-
-  <!-- 申请配送员 -->
-  <view class="menu-group card" wx:if="{{role === 'user'}}">
-    <view class="menu-item row-between" bindtap="onApplyDelivery">
-      <view class="menu-label">🛵 申请成为配送员</view>
       <view class="menu-arrow text-secondary">›</view>
     </view>
   </view>

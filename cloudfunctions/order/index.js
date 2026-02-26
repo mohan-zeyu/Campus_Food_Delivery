@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
     case 'confirmDelivery':  return confirmDelivery(event, OPENID);
     case 'getByMerchant':    return getByMerchant(event, OPENID);
     case 'merchantConfirm':  return merchantConfirm(event, OPENID);
-    default: return { success: false, errMsg: 'Unknown type' };
+    default: return { success: false, errMsg: `Unknown type: ${event.type}` };
   }
 };
 
@@ -63,6 +63,7 @@ async function create(event, openid) {
 
     const totalAmount = itemsTotal + (deliveryFee || 0) + packagingFee;
     const orderNo = _generateOrderNo();
+    const itemCount = orderItems.reduce((sum, oi) => sum + (Number(oi.quantity) || 0), 0);
 
     // 2. 插入订单
     const orderRes = await txn.collection('orders').add({
@@ -76,6 +77,7 @@ async function create(event, openid) {
         delivery_zone: deliveryZone,
         delivery_time: deliveryTime || '立即配送',
         items_total: itemsTotal,
+        item_count: itemCount,
         delivery_fee: deliveryFee || 0,
         packaging_fee: packagingFee,
         total_amount: totalAmount,
@@ -127,7 +129,22 @@ async function getList(event, openid) {
     if (status && status !== 'all') query = query.where({ status });
     const res = await query.orderBy('created_at', 'desc')
       .skip(page * PAGE_SIZE).limit(PAGE_SIZE).get();
-    return { success: true, data: res.data, hasMore: res.data.length === PAGE_SIZE };
+
+    // 为缺少 item_count 的旧订单补充商品数量
+    const orders = res.data;
+    const needCount = orders.filter(o => o.item_count === undefined || o.item_count === null);
+    if (needCount.length > 0) {
+      const countMap = {};
+      for (const o of needCount) {
+        const items = await db.collection('order_items').where({ order_id: o._id }).get();
+        countMap[o._id] = items.data.reduce((sum, oi) => sum + (Number(oi.quantity) || 0), 0);
+      }
+      for (const o of orders) {
+        if (countMap[o._id] !== undefined) o.item_count = countMap[o._id];
+      }
+    }
+
+    return { success: true, data: orders, hasMore: orders.length === PAGE_SIZE };
   } catch (e) {
     return { success: false, errMsg: e.message };
   }

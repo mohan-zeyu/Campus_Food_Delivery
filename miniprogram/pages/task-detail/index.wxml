@@ -1,0 +1,69 @@
+<!--pages/task-detail/index.wxml — 任务详情-->
+<view class="task-detail-page">
+
+  <view wx:if="{{loading}}" class="loading-wrap">加载中...</view>
+
+  <block wx:elif="{{task}}">
+    <!-- 状态标签 -->
+    <view class="status-bar status-{{task.status}}">{{task.statusLabel}}</view>
+
+    <!-- 基本信息 -->
+    <view class="info-card card">
+      <view class="task-title">{{task.title}}</view>
+      <view class="task-desc">{{task.description}}</view>
+      <view class="publisher text-secondary text-sm mt-16">发布者：{{task.publisher_name}}</view>
+    </view>
+
+    <!-- 图片 -->
+    <view class="info-card card" wx:if="{{task.images.length > 0}}">
+      <view class="section-title">图片</view>
+      <view class="image-list">
+        <image wx:for="{{task.images}}" wx:key="*this"
+          src="{{item}}" mode="aspectFill" class="task-img"
+          bindtap="onPreviewImage" data-url="{{item}}"/>
+      </view>
+    </view>
+
+    <!-- 地点信息 -->
+    <view class="info-card card">
+      <view class="location-row" wx:if="{{task.pickup_location}}">
+        <view class="loc-label">取件地点</view>
+        <view class="loc-value">{{task.pickup_location}}</view>
+      </view>
+      <view class="location-row" wx:if="{{task.delivery_location}}">
+        <view class="loc-label">送达地点</view>
+        <view class="loc-value">{{task.delivery_location}}</view>
+      </view>
+    </view>
+
+    <!-- 报酬 -->
+    <view class="info-card card">
+      <view class="reward-row">
+        <view class="reward-label">报酬</view>
+        <view class="reward-amount">¥{{task.reward / 100}}</view>
+      </view>
+    </view>
+
+    <!-- 接单者信息 -->
+    <view class="info-card card" wx:if="{{task.accepted_by}}">
+      <view class="section-title">接单者</view>
+      <view class="text-sm">{{task.acceptor_name || '已接单'}}</view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-area">
+      <!-- 任何人可接取（非自己的、状态为open） -->
+      <button class="action-btn accept-btn" wx:if="{{task.status === 'open' && !isOwner}}"
+        bindtap="onAccept">接取任务</button>
+
+      <!-- 发布者或接单者可标记完成 -->
+      <button class="action-btn complete-btn" wx:if="{{task.status === 'accepted' && (isOwner || isAcceptor)}}"
+        bindtap="onComplete">标记完成</button>
+
+      <!-- 发布者可取消（仅open状态） -->
+      <button class="action-btn cancel-btn" wx:if="{{task.status === 'open' && isOwner}}"
+        bindtap="onCancel">取消任务</button>
+    </view>
+  </block>
+
+</view>

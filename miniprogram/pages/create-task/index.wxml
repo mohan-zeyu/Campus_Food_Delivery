@@ -1,0 +1,53 @@
+<!--pages/create-task/index.wxml — 发布任务-->
+<view class="create-task-page">
+
+  <view class="form-group card">
+    <view class="form-label">任务标题</view>
+    <input class="form-input" placeholder="简短描述任务（最多30字）"
+      maxlength="30" value="{{title}}" bindinput="onTitleInput"/>
+  </view>
+
+  <view class="form-group card">
+    <view class="form-label">任务描述</view>
+    <textarea class="form-textarea" placeholder="详细描述你的需求..."
+      maxlength="500" value="{{description}}" bindinput="onDescInput"/>
+  </view>
+
+  <view class="form-group card">
+    <view class="form-label">图片（可选，最多3张）</view>
+    <view class="image-list">
+      <view class="image-item" wx:for="{{images}}" wx:key="*this">
+        <image src="{{item}}" mode="aspectFill" class="preview-img"/>
+        <view class="remove-btn" bindtap="onRemoveImage" data-index="{{index}}">×</view>
+      </view>
+      <view class="image-add" wx:if="{{images.length < 3}}" bindtap="onChooseImage">
+        <view class="add-icon">+</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-group card">
+    <view class="form-label">取件地点</view>
+    <input class="form-input" placeholder="例：北门快递站"
+      value="{{pickupLocation}}" bindinput="onPickupInput"/>
+  </view>
+
+  <view class="form-group card">
+    <view class="form-label">送达地点</view>
+    <input class="form-input" placeholder="例：3号宿舍楼301"
+      value="{{deliveryLocation}}" bindinput="onDeliveryInput"/>
+  </view>
+
+  <view class="form-group card">
+    <view class="form-label">报酬（元）</view>
+    <input class="form-input" type="digit" placeholder="输入金额"
+      value="{{rewardYuan}}" bindinput="onRewardInput"/>
+  </view>
+
+  <view class="submit-area">
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '发布中...' : '发布任务'}}
+    </button>
+  </view>
+
+</view>

@@ -24,7 +24,6 @@ const ORDER_STATUS_LABEL = {
 
 const ROLES = {
   USER: 'user',
-  DELIVERY: 'delivery',
   MERCHANT: 'merchant',
   ADMIN: 'admin',
 };
@@ -53,6 +52,20 @@ const NOTICE_TYPES = {
   SYSTEM: 'system',
 };
 
+const TASK_STATUS = {
+  OPEN: 'open',
+  ACCEPTED: 'accepted',
+  COMPLETED: 'completed',
+  CANCELLED: 'cancelled',
+};
+
+const TASK_STATUS_LABEL = {
+  open: '待接取',
+  accepted: '进行中',
+  completed: '已完成',
+  cancelled: '已取消',
+};
+
 const PAGE_SIZE = 10;
 
 // 订阅消息模板ID（需在微信公众平台申请后替换）
@@ -71,6 +84,8 @@ module.exports = {
   PRODUCT_CATEGORIES,
   ADDRESS_LABELS,
   NOTICE_TYPES,
+  TASK_STATUS,
+  TASK_STATUS_LABEL,
   PAGE_SIZE,
   SUBSCRIBE_TMPL,
 };

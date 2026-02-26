@@ -1,6 +1,7 @@
 {
-  "navigationBarTitleText": "服务中心",
+  "navigationBarTitleText": "接单大厅",
   "navigationBarBackgroundColor": "#FF6B35",
   "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
   "usingComponents": {}
 }

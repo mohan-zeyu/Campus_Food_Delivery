@@ -1,0 +1,62 @@
+/* pages/task-detail/index.wxss */
+.task-detail-page { padding-bottom: 160rpx; }
+
+.status-bar {
+  padding: 24rpx 32rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FFF;
+}
+.status-open { background: #FF6B35; }
+.status-accepted { background: #1890FF; }
+.status-completed { background: #07C160; }
+.status-cancelled { background: #999; }
+
+.info-card { padding: 24rpx; margin: 16rpx; }
+.task-title { font-size: 34rpx; font-weight: 700; color: #333; margin-bottom: 16rpx; }
+.task-desc { font-size: 28rpx; color: #666; line-height: 1.6; }
+.section-title { font-size: 28rpx; font-weight: 600; color: #333; margin-bottom: 16rpx; }
+
+.image-list { display: flex; gap: 16rpx; flex-wrap: wrap; }
+.task-img { width: 200rpx; height: 200rpx; border-radius: 12rpx; }
+
+.location-row {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+.loc-label {
+  font-size: 26rpx;
+  color: #999;
+  width: 160rpx;
+  flex-shrink: 0;
+}
+.loc-value { font-size: 28rpx; color: #333; }
+
+.reward-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.reward-label { font-size: 28rpx; color: #666; }
+.reward-amount { font-size: 40rpx; font-weight: 700; color: #FF6B35; }
+
+.action-area {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  padding: 24rpx 32rpx;
+  background: #FFF;
+  box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.06);
+  display: flex;
+  gap: 16rpx;
+}
+.action-btn {
+  flex: 1;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+}
+.accept-btn { background: #FF6B35 !important; color: #FFF !important; }
+.complete-btn { background: #07C160 !important; color: #FFF !important; }
+.cancel-btn { background: #F5F5F5 !important; color: #999 !important; }

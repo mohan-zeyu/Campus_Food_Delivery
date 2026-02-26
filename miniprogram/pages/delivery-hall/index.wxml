@@ -1,41 +1,14 @@
-<!--pages/delivery-hall/index.wxml-->
-<view class="delivery-hall-page">
-
-  <!-- 未登录或非配送员 -->
-  <view wx:if="{{role !== 'delivery'}}" class="not-delivery">
-    <view style="font-size:80rpx;text-align:center;padding-top:200rpx">🛵</view>
-    <view class="text-secondary" style="text-align:center;margin-top:24rpx">
-      {{role === 'user' ? '您还不是配送员，前往"我的"申请' : '请先登录'}}
-    </view>
+<!--pages/delivery-hall/index.wxml — 服务中心-->
+<view class="services-page">
+  <view class="services-header">
+    <view class="header-title">服务中心</view>
   </view>
 
-  <!-- 配送员视图 -->
-  <view wx:else>
-    <view class="hall-header">
-      <view class="header-title">接单大厅</view>
-      <view class="order-count text-sm">共 {{orders.length}} 单待接</view>
-    </view>
-
-    <view wx:if="{{loading}}" class="loading-wrap">加载中...</view>
-    <view wx:elif="{{orders.length === 0}}" class="empty-state">
-      <view style="font-size:80rpx">📭</view>
-      <view class="text-secondary mt-16">暂无可接订单</view>
-    </view>
-    <view wx:else>
-      <view class="order-card card" wx:for="{{orders}}" wx:key="_id"
-        bindtap="onOrderTap" data-id="{{item._id}}">
-        <view class="order-head row-between">
-          <view class="merchant-name text-bold">{{item.merchant_name}}</view>
-          <view class="earn-fee text-primary text-bold">+¥{{item.delivery_fee/100}}</view>
-        </view>
-        <view class="order-addr text-secondary text-sm mt-8">
-          📍 {{item.delivery_address.building}} {{item.delivery_address.room}}
-        </view>
-        <view class="order-foot row-between mt-16">
-          <view class="total text-secondary text-sm">订单金额 ¥{{item.total_amount/100}}</view>
-          <view class="accept-btn">立即接单 ›</view>
-        </view>
-      </view>
+  <view class="services-grid">
+    <view class="service-card" wx:for="{{services}}" wx:key="label"
+      bindtap="onServiceTap" data-url="{{item.url}}" data-type="{{item.type}}">
+      <view class="service-icon">{{item.icon}}</view>
+      <view class="service-label">{{item.label}}</view>
     </view>
   </view>
 </view>

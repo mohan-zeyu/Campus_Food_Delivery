@@ -14,7 +14,8 @@ const api = {
       wx.showLoading({ title: '加载中...', mask: true });
       wx.cloud.callFunction({
         name: fn,
-        data: { type, ...data },
+        // 兼容不同云函数参数命名（type / action）
+        data: { ...data, type, action: type },
       }).then(res => {
         wx.hideLoading();
         if (res.result && res.result.success === false) {
@@ -38,7 +39,7 @@ const api = {
   callSilent(fn, type, data = {}) {
     return wx.cloud.callFunction({
       name: fn,
-      data: { type, ...data },
+      data: { ...data, type, action: type },
     }).then(res => res.result);
   },
 };

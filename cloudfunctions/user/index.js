@@ -6,18 +6,18 @@ const _ = db.command;
 
 exports.main = async (event, context) => {
   const { OPENID } = cloud.getWXContext();
-  switch (event.type) {
+  const action = (event.type || event.action || '').trim();
+  switch (action) {
     case 'login':             return login(OPENID);
     case 'getProfile':        return getProfile(OPENID);
     case 'updateProfile':     return updateProfile(event, OPENID);
-    case 'applyDelivery':     return applyDelivery(OPENID);
     case 'getAddresses':      return getAddresses(OPENID);
     case 'addAddress':        return addAddress(event, OPENID);
     case 'updateAddress':     return updateAddress(event, OPENID);
     case 'deleteAddress':     return deleteAddress(event, OPENID);
     case 'setDefaultAddress': return setDefaultAddress(event, OPENID);
     case 'submitFeedback':    return submitFeedback(event, OPENID);
-    default: return { success: false, errMsg: 'Unknown type' };
+    default: return { success: false, errMsg: `Unknown type: ${action || 'undefined'}` };
   }
 };
 
@@ -76,22 +76,6 @@ async function updateProfile(event, openid) {
   if (phone !== undefined) update.phone = phone;
   try {
     await db.collection('users').where({ _openid: openid }).update({ data: update });
-    return { success: true };
-  } catch (e) {
-    return { success: false, errMsg: e.message };
-  }
-}
-
-// ── 申请成为配送员 ──────────────────────────────────────────
-async function applyDelivery(openid) {
-  try {
-    const res = await db.collection('users').where({ _openid: openid }).limit(1).get();
-    if (res.data.length === 0) return { success: false, errMsg: '用户不存在' };
-    const user = res.data[0];
-    if (user.role !== 'user') return { success: false, errMsg: '当前角色不可申请' };
-    await db.collection('users').doc(user._id).update({
-      data: { role: 'delivery' },
-    });
     return { success: true };
   } catch (e) {
     return { success: false, errMsg: e.message };

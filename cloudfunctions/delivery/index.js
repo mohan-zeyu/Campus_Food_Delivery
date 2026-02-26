@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
     case 'uploadProof':        return uploadProof(event, OPENID);
     case 'getHistory':         return getHistory(event, OPENID);
     case 'getEarnings':        return getEarnings(event, OPENID);
-    default: return { success: false, errMsg: 'Unknown type' };
+    default: return { success: false, errMsg: `Unknown type: ${event.type}` };
   }
 };
 
@@ -25,17 +25,28 @@ async function getAvailableOrders(event) {
       .where({ status: 'paid' })
       .orderBy('paid_at', 'asc')
       .limit(30).get();
-    return { success: true, data: res.data };
+
+    // 补充商家取餐地点
+    const orders = res.data;
+    const merchantIds = [...new Set(orders.map(o => o.merchant_id).filter(Boolean))];
+    const merchantMap = {};
+    for (const mid of merchantIds) {
+      try {
+        const m = await db.collection('merchants').doc(mid).get();
+        merchantMap[mid] = m.data.location || '';
+      } catch (_) { /* merchant may be deleted */ }
+    }
+    for (const o of orders) {
+      o.pickup_location = merchantMap[o.merchant_id] || o.merchant_name || '';
+    }
+
+    return { success: true, data: orders };
   } catch (e) {
     return { success: false, errMsg: e.message };
   }
 }
 
 async function acceptOrder(event, openid) {
-  const user = await db.collection('users').where({ _openid: openid }).limit(1).get();
-  const u = user.data[0];
-  if (!u || u.role !== 'delivery') return { success: false, errMsg: '无权限' };
-
   const txn = await db.startTransaction();
   try {
     const order = await txn.collection('orders').doc(event.orderId).get();

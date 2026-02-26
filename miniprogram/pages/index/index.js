@@ -1,9 +1,10 @@
 // pages/index/index.js
 const api = require('../../utils/api');
-const { CAMPUS_ZONE_LABEL } = require('../../utils/constants');
+const { CAMPUS_ZONE_LABEL, TASK_STATUS_LABEL } = require('../../utils/constants');
 
 Page({
   data: {
+    activeMainTab: 'merchants',
     merchants: [],
     notices: [],
     loading: true,
@@ -19,12 +20,16 @@ Page({
       { value: 'south', label: '南区' },
     ],
     noticeIndex: 0,
+    // 任务相关
+    tasks: [],
+    tasksLoading: false,
+    tasksHasMore: true,
+    tasksPage: 0,
   },
 
   onLoad() {
     const app = getApp();
     if (!app.globalData.isLoaded && !app.globalData.openid) {
-      // 未登录，跳转登录页
       wx.redirectTo({ url: '/pages/login/index' });
       return;
     }
@@ -32,19 +37,32 @@ Page({
   },
 
   onShow() {
-    // 刷新数据
     if (typeof this.getTabBar === 'function') {
       this.getTabBar().setData({ selected: 0 });
     }
   },
 
   onPullDownRefresh() {
-    this.loadMerchants(true).then(() => wx.stopPullDownRefresh());
+    if (this.data.activeMainTab === 'merchants') {
+      this.loadMerchants(true).then(() => wx.stopPullDownRefresh());
+    } else {
+      this.loadTasks(true).then(() => wx.stopPullDownRefresh());
+    }
   },
 
   onReachBottom() {
-    if (this.data.hasMore && !this.data.loading) {
-      this.loadMerchants(false);
+    if (this.data.activeMainTab === 'merchants') {
+      if (this.data.hasMore && !this.data.loading) this.loadMerchants(false);
+    } else {
+      if (this.data.tasksHasMore && !this.data.tasksLoading) this.loadTasks(false);
+    }
+  },
+
+  onMainTabChange(e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({ activeMainTab: tab });
+    if (tab === 'tasks' && this.data.tasks.length === 0) {
+      this.loadTasks(true);
     }
   },
 
@@ -69,6 +87,24 @@ Page({
     });
   },
 
+  loadTasks(reset = false) {
+    const page = reset ? 0 : this.data.tasksPage;
+    if (reset) this.setData({ tasksLoading: true, tasksPage: 0, tasks: [] });
+    else this.setData({ tasksLoading: true });
+
+    return api.call('task', 'getList', { status: 'open', page }).then(res => {
+      const tasks = reset ? res.data : [...this.data.tasks, ...res.data];
+      this.setData({
+        tasks: tasks.map(t => ({ ...t, statusLabel: TASK_STATUS_LABEL[t.status] || t.status })),
+        tasksLoading: false,
+        tasksHasMore: res.hasMore,
+        tasksPage: page + 1,
+      });
+    }).catch(() => {
+      this.setData({ tasksLoading: false });
+    });
+  },
+
   onZoneChange(e) {
     const zone = this.data.zones[e.currentTarget.dataset.index].value;
     this.setData({ selectedZone: zone });
@@ -82,6 +118,11 @@ Page({
   onMerchantTap(e) {
     const { id } = e.currentTarget.dataset;
     wx.navigateTo({ url: `/pages/merchant-detail/index?id=${id}` });
+  },
+
+  onTaskTap(e) {
+    const { id } = e.currentTarget.dataset;
+    wx.navigateTo({ url: `/pages/task-detail/index?id=${id}` });
   },
 
   onNoticeChange(e) {

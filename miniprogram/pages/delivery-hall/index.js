@@ -1,41 +1,30 @@
-// pages/delivery-hall/index.js
-const api = require('../../utils/api');
-
+// pages/delivery-hall/index.js — 服务中心
 Page({
   data: {
-    orders: [],
-    loading: false,
-    role: 'user',
+    services: [
+      { icon: '🛵', label: '接单大厅', url: '/pages/delivery-orders/index', type: 'navigate' },
+      { icon: '📝', label: '发布任务', url: '/pages/create-task/index', type: 'navigate' },
+      { icon: '📋', label: '我的订单', url: '/pages/order-list/index', type: 'switchTab' },
+      { icon: '📍', label: '收货地址', url: '/pages/address-list/index', type: 'navigate' },
+      { icon: '💰', label: '配送收益', url: '/pages/delivery-history/index', type: 'navigate' },
+      { icon: '💬', label: '意见反馈', url: '/pages/feedback/index', type: 'navigate' },
+      { icon: '🔍', label: '搜索', url: '/pages/search/index', type: 'navigate' },
+      { icon: '👤', label: '个人中心', url: '/pages/profile/index', type: 'switchTab' },
+    ],
   },
 
   onShow() {
     if (typeof this.getTabBar === 'function') {
       this.getTabBar().setData({ selected: 2 });
     }
-    // 等待登录完成后再检查角色，避免读到默认值 'user'
-    getApp().waitForLogin(() => {
-      const role = getApp().globalData.role;
-      this.setData({ role });
-      if (role === 'delivery') this.loadOrders();
-    });
   },
 
-  onPullDownRefresh() {
-    if (this.data.role === 'delivery') {
-      this.loadOrders().then(() => wx.stopPullDownRefresh());
+  onServiceTap(e) {
+    const { url, type } = e.currentTarget.dataset;
+    if (type === 'switchTab') {
+      wx.switchTab({ url });
     } else {
-      wx.stopPullDownRefresh();
+      wx.navigateTo({ url });
     }
-  },
-
-  loadOrders() {
-    this.setData({ loading: true });
-    return api.call('delivery', 'getAvailableOrders').then(res => {
-      this.setData({ orders: res.data || [], loading: false });
-    }).catch(() => this.setData({ loading: false }));
-  },
-
-  onOrderTap(e) {
-    wx.navigateTo({ url: `/pages/delivery-order-detail/index?id=${e.currentTarget.dataset.id}` });
   },
 });

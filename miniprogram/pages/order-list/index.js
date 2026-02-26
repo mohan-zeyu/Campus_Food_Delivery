@@ -2,6 +2,12 @@
 const api = require('../../utils/api');
 const { statusLabel } = require('../../utils/format');
 
+function getItemCount(order) {
+  const n = Number(order.item_count);
+  if (Number.isFinite(n) && n >= 0) return n;
+  return 0;
+}
+
 Page({
   data: {
     tabs: [
@@ -55,7 +61,7 @@ Page({
     }).then(res => {
       const orders = reset ? res.data : [...this.data.orders, ...res.data];
       this.setData({
-        orders: orders.map(o => ({ ...o, statusLabel: statusLabel(o.status) })),
+        orders: orders.map(o => ({ ...o, statusLabel: statusLabel(o.status), itemCount: getItemCount(o) })),
         loading: false,
         hasMore: res.hasMore,
         page: page + 1,
