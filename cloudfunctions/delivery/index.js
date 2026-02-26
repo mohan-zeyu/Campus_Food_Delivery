@@ -111,7 +111,7 @@ async function uploadProof(event, openid) {
   if (!delivery.data[0]) return { success: false, errMsg: '无权限' };
   try {
     await db.collection('deliveries').doc(delivery.data[0]._id).update({
-      data: { delivery_proof_image: event.fileId },
+      data: { delivery_proof_image: event.proofImage },
     });
     return { success: true };
   } catch (e) {

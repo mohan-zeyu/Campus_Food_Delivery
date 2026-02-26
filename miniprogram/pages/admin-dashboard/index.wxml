@@ -22,12 +22,76 @@
     </view>
   </view>
 
+  <!-- 高级统计 -->
+  <view class="adv-section" wx:if="{{advStats}}">
+    <!-- 取消率 -->
+    <view class="adv-card card">
+      <view class="adv-title text-bold">近7天订单概况</view>
+      <view class="row-between mt-16">
+        <view class="adv-stat">
+          <view class="adv-stat-num">{{advStats.totalCount}}</view>
+          <view class="adv-stat-label text-secondary text-sm">总订单</view>
+        </view>
+        <view class="adv-stat">
+          <view class="adv-stat-num">{{advStats.cancelledCount}}</view>
+          <view class="adv-stat-label text-secondary text-sm">取消数</view>
+        </view>
+        <view class="adv-stat">
+          <view class="adv-stat-num cancel-rate">{{advStats.cancelRate}}%</view>
+          <view class="adv-stat-label text-secondary text-sm">取消率</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 每日趋势 -->
+    <view class="adv-card card" wx:if="{{advStats.dailyTrend.length > 0}}">
+      <view class="adv-title text-bold">每日订单趋势</view>
+      <view class="trend-list mt-16">
+        <view class="trend-row row-between" wx:for="{{advStats.dailyTrend}}" wx:key="date">
+          <view class="trend-date">{{item.date}}</view>
+          <view class="trend-bar-wrap flex-1">
+            <view class="trend-bar" style="width: {{item.orders > 0 && advStats.totalCount > 0 ? (item.orders / advStats.totalCount * 100) : 2}}%"></view>
+          </view>
+          <view class="trend-num">{{item.orders}}单</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 高峰时段 -->
+    <view class="adv-card card" wx:if="{{advStats.peakHours.length > 0}}">
+      <view class="adv-title text-bold">高峰时段 TOP5</view>
+      <view class="peak-list mt-16">
+        <view class="peak-row row-between" wx:for="{{advStats.peakHours}}" wx:key="hour">
+          <view class="peak-hour">{{item.hour}}:00</view>
+          <view class="peak-bar-wrap flex-1">
+            <view class="peak-bar" style="width: {{advStats.peakHours[0].count > 0 ? (item.count / advStats.peakHours[0].count * 100) : 0}}%"></view>
+          </view>
+          <view class="peak-count">{{item.count}}单</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 热门商家 -->
+    <view class="adv-card card" wx:if="{{advStats.popularMerchants.length > 0}}">
+      <view class="adv-title text-bold">热门商家 TOP5</view>
+      <view class="popular-list mt-16">
+        <view class="popular-row row-between" wx:for="{{advStats.popularMerchants}}" wx:key="name">
+          <view class="popular-rank">{{index + 1}}</view>
+          <view class="popular-name flex-1">{{item.name}}</view>
+          <view class="popular-count text-secondary">{{item.count}}单</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
   <view class="menu-group card">
     <view class="menu-item row-between" bindtap="onUsers"><view>👥 用户管理</view><view>›</view></view>
     <view class="divider"></view>
     <view class="menu-item row-between" bindtap="onMerchants"><view>🏪 商家管理</view><view>›</view></view>
     <view class="divider"></view>
     <view class="menu-item row-between" bindtap="onOrders"><view>📋 订单管理</view><view>›</view></view>
+    <view class="divider"></view>
+    <view class="menu-item row-between" bindtap="onNotices"><view>📢 公告管理</view><view>›</view></view>
   </view>
 </view>
 <view wx:else class="loading-wrap">加载中...</view>

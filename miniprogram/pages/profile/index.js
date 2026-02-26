@@ -60,6 +60,22 @@ Page({
     wx.navigateTo({ url: '/pages/delivery-history/index' });
   },
 
+  onFeedback() {
+    wx.navigateTo({ url: '/pages/feedback/index' });
+  },
+
+  onLogout() {
+    wx.showModal({
+      title: '退出登录',
+      content: '确定退出登录？',
+      success: res => {
+        if (res.confirm) {
+          getApp().logout();
+        }
+      },
+    });
+  },
+
   onApplyDelivery() {
     const api = require('../../utils/api');
     wx.showModal({

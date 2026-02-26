@@ -57,4 +57,17 @@
     </view>
   </view>
 
+  <!-- 反馈与投诉 + 退出登录 -->
+  <view class="menu-group card">
+    <view class="menu-item row-between" bindtap="onFeedback">
+      <view class="menu-label">💬 意见反馈</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+    <view class="divider"></view>
+    <view class="menu-item row-between" bindtap="onLogout">
+      <view class="menu-label text-secondary">退出登录</view>
+      <view class="menu-arrow text-secondary">›</view>
+    </view>
+  </view>
+
 </view>

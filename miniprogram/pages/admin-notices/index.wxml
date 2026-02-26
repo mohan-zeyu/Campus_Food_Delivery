@@ -1,0 +1,51 @@
+<!--pages/admin-notices/index.wxml-->
+<view class="admin-notices-page">
+
+  <view class="top-bar row-between">
+    <view class="text-bold text-lg">公告列表</view>
+    <view class="add-btn" bindtap="onToggleForm">{{showForm ? '取消' : '+ 发布公告'}}</view>
+  </view>
+
+  <!-- 发布表单 -->
+  <view class="form-card card" wx:if="{{showForm}}">
+    <view class="form-row">
+      <view class="form-label">标题</view>
+      <input class="form-input" placeholder="公告标题" value="{{form.title}}" bindinput="onTitleInput" maxlength="50"/>
+    </view>
+    <view class="form-row">
+      <view class="form-label">类型</view>
+      <picker mode="selector" range="{{typeOptions}}" value="{{typeIndex}}" bindchange="onTypeChange">
+        <view class="form-picker">{{typeOptions[typeIndex]}}</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <view class="form-label">内容</view>
+      <textarea class="form-textarea" placeholder="公告内容..." value="{{form.content}}" bindinput="onContentInput" maxlength="500"/>
+    </view>
+    <button class="publish-btn btn-primary" loading="{{submitting}}" bindtap="onPublish">发布</button>
+  </view>
+
+  <!-- 公告列表 -->
+  <view class="notice-list" wx:if="{{!loading}}">
+    <view wx:for="{{notices}}" wx:key="_id" class="notice-card card">
+      <view class="notice-header row-between">
+        <view class="notice-title text-bold">{{item.title}}</view>
+        <view class="notice-type tag">{{item.type}}</view>
+      </view>
+      <view class="notice-content text-secondary text-sm mt-8">{{item.content}}</view>
+      <view class="notice-actions row mt-16">
+        <view class="notice-status {{item.is_active ? 'active' : 'inactive'}}">
+          {{item.is_active ? '启用中' : '已禁用'}}
+        </view>
+        <view class="flex-1"></view>
+        <view class="action-link" catchtap="onToggleActive" data-id="{{item._id}}" data-active="{{item.is_active}}">
+          {{item.is_active ? '禁用' : '启用'}}
+        </view>
+        <view class="action-link danger" catchtap="onDeleteNotice" data-id="{{item._id}}">删除</view>
+      </view>
+    </view>
+    <view wx:if="{{notices.length === 0}}" class="empty-text">暂无公告</view>
+  </view>
+  <view wx:else class="loading-wrap">加载中...</view>
+
+</view>

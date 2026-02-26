@@ -9,6 +9,6 @@
     <text wx:else class="text-secondary text-sm">购物车空空如也</text>
   </view>
   <view class="checkout-btn" wx:if="{{itemCount > 0}}">
-    {{totalAmount >= minOrder ? '去结算' : '差¥' + ((minOrder-totalAmount)/100).toFixed(2) + '起送'}}
+    {{checkoutText}}
   </view>
 </view>

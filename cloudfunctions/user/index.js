@@ -16,6 +16,7 @@ exports.main = async (event, context) => {
     case 'updateAddress':     return updateAddress(event, OPENID);
     case 'deleteAddress':     return deleteAddress(event, OPENID);
     case 'setDefaultAddress': return setDefaultAddress(event, OPENID);
+    case 'submitFeedback':    return submitFeedback(event, OPENID);
     default: return { success: false, errMsg: 'Unknown type' };
   }
 };
@@ -172,6 +173,25 @@ async function setDefaultAddress(event, openid) {
       .update({ data: { is_default: false } });
     await db.collection('addresses').doc(event.id).update({
       data: { is_default: true },
+    });
+    return { success: true };
+  } catch (e) {
+    return { success: false, errMsg: e.message };
+  }
+}
+
+// ── 提交反馈 ──────────────────────────────────────────────────
+async function submitFeedback(event, openid) {
+  try {
+    await db.collection('feedback').add({
+      data: {
+        _openid: openid,
+        type: event.feedbackType,
+        content: event.content,
+        images: event.images || [],
+        status: 'pending',
+        created_at: db.serverDate(),
+      },
     });
     return { success: true };
   } catch (e) {

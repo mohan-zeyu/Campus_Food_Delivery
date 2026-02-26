@@ -1,5 +1,6 @@
 // pages/delivery-order-detail/index.js
 const api = require('../../utils/api');
+const notify = require('../../utils/notify');
 
 Page({
   data: {
@@ -23,6 +24,7 @@ Page({
   onAccept() {
     this.setData({ actionLoading: true });
     api.call('delivery', 'acceptOrder', { orderId: this.orderId }).then(() => {
+      notify.subscribeDeliveryUpdates();
       wx.showToast({ title: '接单成功！', icon: 'success' });
       this.loadOrder();
     }).catch(() => this.setData({ actionLoading: false }));

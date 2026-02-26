@@ -23,6 +23,14 @@
     </view>
   </view>
 
+  <!-- 配送时间 -->
+  <view class="section-card card" wx:if="{{params.deliveryTime}}">
+    <view class="fee-row row-between">
+      <view class="text-secondary">配送时间</view>
+      <view>{{params.deliveryTime}}</view>
+    </view>
+  </view>
+
   <!-- 费用 -->
   <view class="section-card card">
     <view class="fee-row row-between">

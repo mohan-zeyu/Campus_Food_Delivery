@@ -29,7 +29,7 @@ function _generateOrderNo() {
 
 // ── 创建订单（带事务：检查库存 → 扣减 → 插入） ──────────────
 async function create(event, openid) {
-  const { merchantId, merchantName, deliveryAddress, deliveryZone, items, deliveryFee } = event;
+  const { merchantId, merchantName, deliveryAddress, deliveryZone, items, deliveryFee, deliveryTime } = event;
   const txn = await db.startTransaction();
   try {
     // 1. 校验并扣减库存
@@ -74,6 +74,7 @@ async function create(event, openid) {
         merchant_name: merchantName,
         delivery_address: deliveryAddress,
         delivery_zone: deliveryZone,
+        delivery_time: deliveryTime || '立即配送',
         items_total: itemsTotal,
         delivery_fee: deliveryFee || 0,
         packaging_fee: packagingFee,

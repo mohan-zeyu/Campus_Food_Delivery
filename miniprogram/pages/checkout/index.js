@@ -1,6 +1,7 @@
 // pages/checkout/index.js
 const api = require('../../utils/api');
 const cart = require('../../utils/cart');
+const notify = require('../../utils/notify');
 
 Page({
   data: {
@@ -52,11 +53,14 @@ Page({
       deliveryZone: address.campus_zone,
       items,
       deliveryFee: params.deliveryFee,
+      deliveryTime: params.deliveryTime || '立即配送',
     }).then(res => {
       // 模拟支付
       return api.call('order', 'pay', { orderId: res.orderId });
     }).then(() => {
       cart.clear();
+      // 请求订阅消息授权（静默失败不阻塞）
+      notify.subscribeOrderUpdates();
       wx.showToast({ title: '下单成功！', icon: 'success' });
       setTimeout(() => {
         wx.switchTab({ url: '/pages/order-list/index' });

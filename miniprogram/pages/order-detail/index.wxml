@@ -30,6 +30,14 @@
     </view>
   </view>
 
+  <!-- 配送时间 -->
+  <view class="info-card card" wx:if="{{order.delivery_time}}">
+    <view class="fee-row row-between">
+      <view class="text-secondary">配送时间</view>
+      <view>{{order.delivery_time}}</view>
+    </view>
+  </view>
+
   <!-- 费用 -->
   <view class="info-card card">
     <view class="fee-row row-between"><view class="text-secondary">商品金额</view><view>¥{{order.items_total/100}}</view></view>

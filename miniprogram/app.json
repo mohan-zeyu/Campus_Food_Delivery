@@ -23,7 +23,9 @@
     "pages/admin-dashboard/index",
     "pages/admin-merchants/index",
     "pages/admin-users/index",
-    "pages/admin-orders/index"
+    "pages/admin-orders/index",
+    "pages/admin-notices/index",
+    "pages/feedback/index"
   ],
   "tabBar": {
     "color": "#999999",

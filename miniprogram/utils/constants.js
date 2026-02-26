@@ -55,6 +55,13 @@ const NOTICE_TYPES = {
 
 const PAGE_SIZE = 10;
 
+// 订阅消息模板ID（需在微信公众平台申请后替换）
+const SUBSCRIBE_TMPL = {
+  ORDER_STATUS: '', // 订单状态变更通知
+  DELIVERY_ACCEPTED: '', // 配送员接单通知
+  ORDER_COMPLETED: '', // 订单完成通知
+};
+
 module.exports = {
   ORDER_STATUS,
   ORDER_STATUS_LABEL,
@@ -65,4 +72,5 @@ module.exports = {
   ADDRESS_LABELS,
   NOTICE_TYPES,
   PAGE_SIZE,
+  SUBSCRIBE_TMPL,
 };

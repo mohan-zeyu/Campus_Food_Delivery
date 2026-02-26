@@ -47,7 +47,7 @@ async function seedAll() {
         rating_count: 256,
         status: "open",
         owner_openid: "",
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
       {
         name: "西式轻食·沙拉站",
@@ -67,7 +67,7 @@ async function seedAll() {
         rating_count: 132,
         status: "open",
         owner_openid: "",
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
       {
         name: "麻辣烫·胡辣汤",
@@ -85,7 +85,7 @@ async function seedAll() {
         rating_count: 89,
         status: "open",
         owner_openid: "",
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
       {
         name: "奶茶屋·饮品专区",
@@ -105,7 +105,7 @@ async function seedAll() {
         rating_count: 512,
         status: "open",
         owner_openid: "",
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
       {
         name: "黄焖鸡·盖浇饭",
@@ -123,7 +123,7 @@ async function seedAll() {
         rating_count: 198,
         status: "open",
         owner_openid: "",
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
     ];
 
@@ -187,7 +187,7 @@ async function seedAll() {
     for (let i = 0; i < merchantIds.length; i++) {
       for (const p of productsData[i]) {
         await db.collection("products").add({
-          data: { ...p, merchant_id: merchantIds[i], created_at: new Date() },
+          data: { ...p, merchant_id: merchantIds[i], created_at: db.serverDate() },
         });
         productCount++;
       }
@@ -202,7 +202,7 @@ async function seedAll() {
         is_active: true,
         created_by: "system",
         expires_at: null,
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
       {
         title: "🔥 新用户首单立减3元",
@@ -211,7 +211,7 @@ async function seedAll() {
         is_active: true,
         created_by: "system",
         expires_at: null,
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
       {
         title: "📢 配送时间公告",
@@ -220,7 +220,7 @@ async function seedAll() {
         is_active: true,
         created_by: "system",
         expires_at: null,
-        created_at: new Date(),
+        created_at: db.serverDate(),
       },
     ];
 

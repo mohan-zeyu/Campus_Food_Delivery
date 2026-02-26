@@ -1,0 +1,35 @@
+/* pages/admin-notices/index.wxss */
+.admin-notices-page { padding: 16rpx; }
+.top-bar { padding: 16rpx 0; }
+.add-btn { color: #FF6B35; font-size: 28rpx; font-weight: 500; }
+
+.form-card { margin-bottom: 16rpx; }
+.form-row { margin-bottom: 20rpx; }
+.form-label { font-size: 26rpx; color: #666; margin-bottom: 8rpx; }
+.form-input {
+  width: 100%; height: 72rpx; background: #F5F5F5; border-radius: 8rpx;
+  padding: 0 20rpx; font-size: 28rpx; box-sizing: border-box;
+}
+.form-picker {
+  height: 72rpx; line-height: 72rpx; background: #F5F5F5; border-radius: 8rpx;
+  padding: 0 20rpx; font-size: 28rpx;
+}
+.form-textarea {
+  width: 100%; height: 200rpx; background: #F5F5F5; border-radius: 8rpx;
+  padding: 20rpx; font-size: 28rpx; box-sizing: border-box;
+}
+.publish-btn {
+  width: 100%; margin-top: 16rpx; background: #FF6B35; color: #FFF;
+  border-radius: 40rpx; padding: 24rpx 0; font-size: 30rpx; font-weight: 600;
+}
+
+.notice-card { margin-bottom: 16rpx; }
+.notice-title { font-size: 30rpx; }
+.notice-content { line-height: 1.5; }
+.notice-actions { align-items: center; }
+.notice-status { font-size: 22rpx; padding: 4rpx 12rpx; border-radius: 20rpx; }
+.notice-status.active { background: #E6F7E6; color: #07C160; }
+.notice-status.inactive { background: #F5F5F5; color: #999; }
+.action-link { font-size: 26rpx; color: #FF6B35; margin-left: 24rpx; }
+.action-link.danger { color: #E53935; }
+.empty-text { text-align: center; color: #999; padding: 80rpx 0; font-size: 28rpx; }
