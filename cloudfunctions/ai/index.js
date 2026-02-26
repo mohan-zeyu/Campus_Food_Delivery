@@ -2,47 +2,55 @@
 const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
+const https = require('https');
+const { URL } = require('url');
 
-// Claude API key stored in environment variable
-// Set via WeChat Cloud Function environment variable: CLAUDE_API_KEY
-const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY || '';
-const CLAUDE_API_URL = 'https://api.anthropic.com/v1/messages';
+// Qwen API config (DashScope OpenAI-compatible)
+// Set via WeChat Cloud Function environment variables:
+// - QWEN_API_KEY (or DASHSCOPE_API_KEY)
+// - QWEN_MODEL (default: qwen3.5-flash)
+// - QWEN_API_URL (default: DashScope compatible endpoint)
+const QWEN_API_KEY = process.env.QWEN_API_KEY || process.env.DASHSCOPE_API_KEY || '';
+const QWEN_MODEL = process.env.QWEN_MODEL || 'qwen3.5-flash';
+const QWEN_API_URL = process.env.QWEN_API_URL || 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
 
 exports.main = async (event, context) => {
   const { OPENID } = cloud.getWXContext();
-  switch (event.type) {
+  const action = (event.type || event.action || '').trim();
+  switch (action) {
     case 'search':              return aiSearch(event, OPENID);
     case 'suggestRemarks':      return suggestRemarks(event, OPENID);
     case 'generateReviewDraft': return generateReviewDraft(event, OPENID);
-    default: return { success: false, errMsg: 'Unknown type' };
+    default: return { success: false, errMsg: `Unknown type: ${action || 'undefined'}` };
   }
 };
 
-async function _callClaude(systemPrompt, userMessage) {
-  if (!CLAUDE_API_KEY) {
-    return { success: false, errMsg: 'AI功能未配置，请联系管理员' };
+async function _callQwen(systemPrompt, userMessage) {
+  if (!QWEN_API_KEY) {
+    throw new Error('AI功能未配置，请联系管理员');
   }
-  const response = await cloud.callContainer({
-    // 通过云函数直接调用外部 API
-  });
-  // Use wx-server-sdk's got or https
-  const https = require('https');
+
+  const endpoint = new URL(QWEN_API_URL);
   const body = JSON.stringify({
-    model: 'claude-haiku-4-5-20251001',
+    model: QWEN_MODEL,
     max_tokens: 1024,
-    system: systemPrompt,
-    messages: [{ role: 'user', content: userMessage }],
+    temperature: 0.2,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userMessage },
+    ],
   });
 
   return new Promise((resolve, reject) => {
     const options = {
-      hostname: 'api.anthropic.com',
-      path: '/v1/messages',
+      protocol: endpoint.protocol,
+      hostname: endpoint.hostname,
+      port: endpoint.port || (endpoint.protocol === 'https:' ? 443 : 80),
+      path: `${endpoint.pathname}${endpoint.search}`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': CLAUDE_API_KEY,
-        'anthropic-version': '2023-06-01',
+        Authorization: `Bearer ${QWEN_API_KEY}`,
         'Content-Length': Buffer.byteLength(body),
       },
     };
@@ -52,7 +60,16 @@ async function _callClaude(systemPrompt, userMessage) {
       res.on('end', () => {
         try {
           const parsed = JSON.parse(data);
-          resolve(parsed.content[0].text);
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            const msg = parsed && parsed.error && parsed.error.message
+              ? parsed.error.message
+              : `Qwen API error (${res.statusCode})`;
+            return reject(new Error(msg));
+          }
+          const content = parsed && parsed.choices && parsed.choices[0] &&
+            parsed.choices[0].message && parsed.choices[0].message.content;
+          if (!content) return reject(new Error('Qwen返回内容为空'));
+          resolve(typeof content === 'string' ? content : JSON.stringify(content));
         } catch (e) {
           reject(e);
         }
@@ -73,7 +90,7 @@ async function aiSearch(event, openid) {
 只返回JSON，不要其他内容。`;
 
   try {
-    const aiResult = await _callClaude(systemPrompt, query);
+    const aiResult = await _callQwen(systemPrompt, query);
     const filters = JSON.parse(aiResult);
 
     // 用解析出的条件搜索商品
@@ -105,7 +122,7 @@ async function suggestRemarks(event, openid) {
 只返回JSON数组。`;
 
   try {
-    const result = await _callClaude(systemPrompt, '请给我3条备注建议');
+    const result = await _callQwen(systemPrompt, '请给我3条备注建议');
     const suggestions = JSON.parse(result);
     return { success: true, data: suggestions };
   } catch (e) {
@@ -121,7 +138,7 @@ async function generateReviewDraft(event, openid) {
 评分${score}星（1-5），商家：${orderInfo.merchantName}，商品：${orderInfo.items}`;
 
   try {
-    const draft = await _callClaude(systemPrompt, '帮我写一段评价');
+    const draft = await _callQwen(systemPrompt, '帮我写一段评价');
     return { success: true, data: draft };
   } catch (e) {
     return { success: false, errMsg: 'AI生成失败' };
