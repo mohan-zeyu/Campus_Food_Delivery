@@ -1,14 +1,43 @@
-<!--pages/delivery-hall/index.wxml — 服务中心-->
+<!--pages/delivery-hall/index.wxml-->
 <view class="services-page">
-  <view class="services-header">
-    <view class="header-title">服务中心</view>
-  </view>
 
-  <view class="services-grid">
-    <view class="service-card" wx:for="{{services}}" wx:key="label"
-      bindtap="onServiceTap" data-url="{{item.url}}" data-type="{{item.type}}">
-      <view class="service-icon">{{item.icon}}</view>
-      <view class="service-label">{{item.label}}</view>
+  <view class="services-hero" style="height: 370rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">
+    <view class="hero-glow hero-glow-a"></view>
+    <view class="hero-glow hero-glow-b"></view>
+
+    <view class="hero-content">
+      <view class="hero-tag">校园生活助手</view>
+      <view class="hero-title">今天想做什么？</view>
+      <view class="hero-desc">接单、下单、反馈，一站搞定</view>
+
+      <view class="hero-metrics">
+        <view class="metric-card">
+          <view class="metric-label">任务服务</view>
+          <view class="metric-value">快速发布</view>
+        </view>
+        <view class="metric-card">
+          <view class="metric-label">配送服务</view>
+          <view class="metric-value">实时接单</view>
+        </view>
+      </view>
     </view>
   </view>
+
+  <view class="services-panel">
+    <view class="panel-head">
+      <view class="panel-title">常用服务</view>
+      <view class="panel-subtitle">点击进入对应功能</view>
+    </view>
+
+    <view class="services-grid">
+      <view class="service-item" wx:for="{{services}}" wx:key="label"
+        bindtap="onServiceTap" data-url="{{item.url}}" data-type="{{item.type}}">
+        <view class="service-icon-wrap icon-bg-{{index}}">
+          <view class="service-icon">{{item.icon}}</view>
+        </view>
+        <view class="service-label">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
 </view>

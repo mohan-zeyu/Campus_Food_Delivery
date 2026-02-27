@@ -1,65 +1,88 @@
 <!--pages/profile/index.wxml-->
 <view class="profile-page">
 
-  <!-- 用户信息 -->
-  <view class="user-header">
-    <image class="avatar" src="{{userInfo.avatar_url || '/images/icons/avatar.png'}}" mode="aspectFill"/>
-    <view class="user-info">
-      <view class="nickname text-bold">{{userInfo.nickname || '校园食递用户'}}</view>
-      <view class="role-tag">
-        {{role === 'admin' ? '管理员' : role === 'merchant' ? '商家' : '普通用户'}}
+  <view class="profile-hero">
+    <view class="user-row">
+      <view class="avatar-shell">
+        <image class="avatar" src="{{userInfo.avatar_url || '/images/icons/avatar.png'}}" mode="aspectFill"/>
+      </view>
+      <view class="user-info">
+        <view class="nickname">{{userInfo.nickname || '校园食递用户'}}</view>
+        <view class="role-tag">
+          {{role === 'admin' ? '管理员' : role === 'merchant' ? '商家' : '普通用户'}}
+        </view>
       </view>
     </view>
   </view>
 
-  <!-- 菜单列表 -->
-  <view class="menu-group card">
-    <view class="menu-item row-between" bindtap="onAddressList">
-      <view class="menu-label">📍 收货地址</view>
-      <view class="menu-arrow text-secondary">›</view>
-    </view>
-    <view class="divider"></view>
-    <view class="menu-item row-between" bindtap="onMyOrders">
-      <view class="menu-label">📋 我的订单</view>
-      <view class="menu-arrow text-secondary">›</view>
-    </view>
-  </view>
+  <view class="profile-body">
 
-  <!-- 配送收益（所有用户可见） -->
-  <view class="menu-group card">
-    <view class="menu-item row-between" bindtap="onDeliveryHistory">
-      <view class="menu-label">💰 配送收益</view>
-      <view class="menu-arrow text-secondary">›</view>
+    <view class="menu-card">
+      <view class="menu-item" bindtap="onAddressList">
+        <view class="menu-left">
+          <view class="menu-icon icon-red">📍</view>
+          <view class="menu-label">收货地址</view>
+        </view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item" bindtap="onMyOrders">
+        <view class="menu-left">
+          <view class="menu-icon icon-blue">📋</view>
+          <view class="menu-label">我的订单</view>
+        </view>
+        <view class="menu-arrow">›</view>
+      </view>
     </view>
-  </view>
 
-  <!-- 商家菜单 -->
-  <view class="menu-group card" wx:if="{{role === 'merchant'}}">
-    <view class="menu-item row-between" bindtap="onMerchantDashboard">
-      <view class="menu-label">🏪 商家后台</view>
-      <view class="menu-arrow text-secondary">›</view>
+    <view class="menu-card">
+      <view class="menu-item" bindtap="onDeliveryHistory">
+        <view class="menu-left">
+          <view class="menu-icon icon-yellow">💰</view>
+          <view class="menu-label">配送收益</view>
+        </view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item" bindtap="onFeedback">
+        <view class="menu-left">
+          <view class="menu-icon icon-teal">💬</view>
+          <view class="menu-label">意见反馈</view>
+        </view>
+        <view class="menu-arrow">›</view>
+      </view>
     </view>
-  </view>
 
-  <!-- 管理员菜单 -->
-  <view class="menu-group card" wx:if="{{role === 'admin'}}">
-    <view class="menu-item row-between" bindtap="onAdminDashboard">
-      <view class="menu-label">⚙️ 管理后台</view>
-      <view class="menu-arrow text-secondary">›</view>
+    <view class="menu-card" wx:if="{{role === 'merchant'}}">
+      <view class="menu-item" bindtap="onMerchantDashboard">
+        <view class="menu-left">
+          <view class="menu-icon icon-orange">🏪</view>
+          <view class="menu-label">商家后台</view>
+        </view>
+        <view class="menu-arrow">›</view>
+      </view>
     </view>
-  </view>
 
-  <!-- 反馈与投诉 + 退出登录 -->
-  <view class="menu-group card">
-    <view class="menu-item row-between" bindtap="onFeedback">
-      <view class="menu-label">💬 意见反馈</view>
-      <view class="menu-arrow text-secondary">›</view>
+    <view class="menu-card" wx:if="{{role === 'admin'}}">
+      <view class="menu-item" bindtap="onAdminDashboard">
+        <view class="menu-left">
+          <view class="menu-icon icon-purple">⚙️</view>
+          <view class="menu-label">管理后台</view>
+        </view>
+        <view class="menu-arrow">›</view>
+      </view>
     </view>
-    <view class="divider"></view>
-    <view class="menu-item row-between" bindtap="onLogout">
-      <view class="menu-label text-secondary">退出登录</view>
-      <view class="menu-arrow text-secondary">›</view>
+
+    <view class="menu-card logout-card">
+      <view class="menu-item" bindtap="onLogout">
+        <view class="menu-left">
+          <view class="menu-icon icon-gray">↩︎</view>
+          <view class="menu-label logout-label">退出登录</view>
+        </view>
+        <view class="menu-arrow">›</view>
+      </view>
     </view>
+
   </view>
 
 </view>

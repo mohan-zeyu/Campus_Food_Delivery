@@ -1,95 +1,120 @@
 <!--pages/index/index.wxml-->
-<view class="index-page">
+<view class="home-page">
 
-  <!-- 搜索栏 -->
-  <view class="search-bar" bindtap="onSearch">
-    <view class="search-icon">🔍</view>
-    <view class="search-placeholder">搜索餐厅或菜品...</view>
+  <view class="home-hero">
+    <view class="search-shell" bindtap="onSearch">
+      <view class="search-icon">🔍</view>
+      <view class="search-placeholder">搜索餐厅或菜品...</view>
+    </view>
   </view>
 
-  <!-- 公告轮播 -->
   <swiper wx:if="{{notices.length > 0}}"
     class="notice-swiper" autoplay circular
     bindchange="onNoticeChange">
     <swiper-item wx:for="{{notices}}" wx:key="_id">
       <view class="notice-item">
         <view class="notice-type">{{item.type === 'promotion' ? '优惠' : item.type === 'system' ? '系统' : '公告'}}</view>
+        <view class="notice-icon">🔔</view>
         <view class="notice-title">{{item.title}}</view>
       </view>
     </swiper-item>
   </swiper>
 
-  <!-- 主Tab切换：商家 / 任务 -->
-  <view class="main-tab-bar">
-    <view class="main-tab {{activeMainTab === 'merchants' ? 'active' : ''}}"
-      bindtap="onMainTabChange" data-tab="merchants">商家</view>
-    <view class="main-tab {{activeMainTab === 'tasks' ? 'active' : ''}}"
-      bindtap="onMainTabChange" data-tab="tasks">任务</view>
+  <view wx:else class="notice-swiper">
+    <view class="notice-item">
+      <view class="notice-type">系统</view>
+      <view class="notice-icon">🔔</view>
+      <view class="notice-title">配送时间公告</view>
+    </view>
   </view>
 
-  <!-- 商家视图 -->
+  <view class="main-tab-bar">
+    <view class="main-tab {{activeMainTab === 'merchants' ? 'active' : ''}}"
+      bindtap="onMainTabChange" data-tab="merchants">
+      商家
+      <view wx:if="{{activeMainTab === 'merchants'}}" class="main-tab-line"></view>
+    </view>
+    <view class="main-tab {{activeMainTab === 'tasks' ? 'active' : ''}}"
+      bindtap="onMainTabChange" data-tab="tasks">
+      任务
+      <view wx:if="{{activeMainTab === 'tasks'}}" class="main-tab-line"></view>
+    </view>
+  </view>
+
   <block wx:if="{{activeMainTab === 'merchants'}}">
-    <!-- 分区筛选 -->
-    <scroll-view class="zone-bar" scroll-x>
-      <view wx:for="{{zones}}" wx:key="value"
-        class="zone-item {{selectedZone === item.value ? 'active' : ''}}"
-        bindtap="onZoneChange" data-index="{{index}}">
-        {{item.label}}
+    <scroll-view class="zone-bar" scroll-x enable-flex="true">
+      <view class="zone-inner">
+        <view wx:for="{{zones}}" wx:key="value"
+          class="zone-item {{selectedZone === item.value ? 'active' : ''}}"
+          bindtap="onZoneChange" data-index="{{index}}">
+          {{item.label}}
+        </view>
       </view>
     </scroll-view>
 
-    <!-- 商家列表 -->
     <view class="merchant-list">
       <view wx:if="{{loading && merchants.length === 0}}" class="loading-wrap">加载中...</view>
       <view wx:elif="{{!loading && merchants.length === 0}}" class="empty-tip">
         暂无商家，敬请期待
       </view>
+
       <view wx:for="{{merchants}}" wx:key="_id"
         class="merchant-card" bindtap="onMerchantTap" data-id="{{item._id}}">
-        <image class="merchant-cover" src="{{item.cover_image}}" mode="aspectFill"/>
+        <view class="merchant-cover-wrap">
+          <image class="merchant-cover {{item.status === 'open' ? '' : 'closed'}}" src="{{item.cover_image}}" mode="aspectFill"/>
+          <view class="merchant-cover-status">{{item.status === 'open' ? '营业中' : '休息中'}}</view>
+        </view>
+
         <view class="merchant-info">
           <view class="merchant-name">{{item.name}}</view>
-          <view class="merchant-meta row">
-            <view class="rating">⭐ {{item.avg_rating}}</view>
-            <view class="dot">·</view>
-            <view class="location">{{item.location}}</view>
+          <view class="merchant-meta">
+            <text class="star">★</text>
+            <text class="rating">{{item.avg_rating}}</text>
+            <text class="dot">·</text>
+            <text class="location">{{item.location}}</text>
           </view>
-          <view class="merchant-bottom row-between">
-            <view class="min-order text-secondary text-sm">起送 ¥{{item.min_order/100}}</view>
-            <view class="status-tag {{item.status === 'open' ? 'open' : 'closed'}}">
-              {{item.status === 'open' ? '营业中' : '已打烊'}}
+
+          <view class="merchant-bottom">
+            <view class="min-order">起送 <text class="min-order-price">¥{{item.min_order/100}}</text></view>
+            <view class="status-pill {{item.status === 'open' ? 'open' : 'closed'}}">
+              {{item.status === 'open' ? '营业中' : '休息中'}}
             </view>
           </view>
         </view>
       </view>
+
       <view wx:if="{{!hasMore && merchants.length > 0}}" class="no-more">没有更多了</view>
     </view>
   </block>
 
-  <!-- 任务视图 -->
   <block wx:if="{{activeMainTab === 'tasks'}}">
     <view class="task-list">
       <view wx:if="{{tasksLoading && tasks.length === 0}}" class="loading-wrap">加载中...</view>
       <view wx:elif="{{!tasksLoading && tasks.length === 0}}" class="empty-tip">
         暂无任务，去发布一个吧
       </view>
+
       <view wx:for="{{tasks}}" wx:key="_id"
-        class="task-card card" bindtap="onTaskTap" data-id="{{item._id}}">
-        <view class="task-head row-between">
-          <view class="task-title-text text-bold">{{item.title}}</view>
-          <view class="task-reward text-primary text-bold">¥{{item.reward / 100}}</view>
+        class="task-card" bindtap="onTaskTap" data-id="{{item._id}}">
+        <view class="task-head">
+          <view class="task-title-text">{{item.title}}</view>
+          <view class="task-reward">¥{{item.reward / 100}}</view>
         </view>
-        <view class="task-desc-text text-secondary text-sm mt-8">{{item.description}}</view>
-        <view class="task-locations text-sm mt-12" wx:if="{{item.pickup_location || item.delivery_location}}">
+
+        <view class="task-desc-text">{{item.description}}</view>
+
+        <view class="task-locations" wx:if="{{item.pickup_location || item.delivery_location}}">
           <text wx:if="{{item.pickup_location}}">📍 {{item.pickup_location}}</text>
           <text wx:if="{{item.pickup_location && item.delivery_location}}"> → </text>
           <text wx:if="{{item.delivery_location}}">🏠 {{item.delivery_location}}</text>
         </view>
-        <view class="task-foot row-between mt-12">
-          <view class="text-secondary text-xs">{{item.publisher_name}}</view>
+
+        <view class="task-foot">
+          <view class="task-publisher">{{item.publisher_name}}</view>
           <view class="task-status-tag">{{item.statusLabel}}</view>
         </view>
       </view>
+
       <view wx:if="{{!tasksHasMore && tasks.length > 0}}" class="no-more">没有更多了</view>
     </view>
   </block>
