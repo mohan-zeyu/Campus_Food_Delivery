@@ -3,6 +3,7 @@ Page({
   data: {
     services: [
       { icon: '🛵', label: '接单大厅', url: '/pages/delivery-orders/index', type: 'navigate' },
+      { icon: '📦', label: '我的接单', url: '/pages/delivery-orders/index?tab=myOrders', type: 'navigate' },
       { icon: '📝', label: '发布任务', url: '/pages/create-task/index', type: 'navigate' },
       { icon: '📋', label: '我的订单', url: '/pages/order-list/index', type: 'switchTab' },
       { icon: '📍', label: '收货地址', url: '/pages/address-list/index', type: 'navigate' },

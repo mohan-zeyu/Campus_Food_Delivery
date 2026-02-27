@@ -31,14 +31,14 @@ Page({
   },
 
   onPickUp() {
-    api.call('delivery', 'updateStatus', { orderId: this.orderId, action: 'pickUp' }).then(() => {
+    api.call('delivery', 'updateStatus', { orderId: this.orderId, statusAction: 'pickUp' }).then(() => {
       wx.showToast({ title: '已取餐', icon: 'success' });
       this.loadOrder();
     });
   },
 
   onDispatch() {
-    api.call('delivery', 'updateStatus', { orderId: this.orderId, action: 'dispatch' }).then(() => {
+    api.call('delivery', 'updateStatus', { orderId: this.orderId, statusAction: 'dispatch' }).then(() => {
       wx.showToast({ title: '配送中', icon: 'success' });
       this.loadOrder();
     });
@@ -113,7 +113,7 @@ Page({
   },
 
   _confirmDeliver() {
-    api.call('delivery', 'updateStatus', { orderId: this.orderId, action: 'deliver' }).then(() => {
+    api.call('delivery', 'updateStatus', { orderId: this.orderId, statusAction: 'deliver' }).then(() => {
       wx.showToast({ title: '已送达', icon: 'success' });
       this.loadOrder();
     });

@@ -6,7 +6,8 @@ const _ = db.command;
 
 exports.main = async (event, context) => {
   const { OPENID } = cloud.getWXContext();
-  switch (event.type) {
+  const type = (event.type || event.action || '').trim();
+  switch (type) {
     case 'create':           return create(event, OPENID);
     case 'pay':              return pay(event, OPENID);
     case 'getList':          return getList(event, OPENID);
@@ -15,7 +16,7 @@ exports.main = async (event, context) => {
     case 'confirmDelivery':  return confirmDelivery(event, OPENID);
     case 'getByMerchant':    return getByMerchant(event, OPENID);
     case 'merchantConfirm':  return merchantConfirm(event, OPENID);
-    default: return { success: false, errMsg: `Unknown type: ${event.type}` };
+    default: return { success: false, errMsg: `Unknown type: ${type || 'undefined'}` };
   }
 };
 

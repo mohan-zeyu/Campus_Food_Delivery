@@ -6,7 +6,8 @@ const _ = db.command;
 
 exports.main = async (event, context) => {
   const { OPENID } = cloud.getWXContext();
-  switch (event.type) {
+  const type = (event.type || event.action || '').trim();
+  switch (type) {
     case 'getAvailableOrders': return getAvailableOrders(event);
     case 'acceptOrder':        return acceptOrder(event, OPENID);
     case 'updateStatus':       return updateStatus(event, OPENID);
@@ -87,14 +88,15 @@ async function acceptOrder(event, openid) {
 }
 
 async function updateStatus(event, openid) {
-  const { orderId, action } = event;
-  // action: 'pickUp' | 'dispatch' | 'deliver'
+  const orderId = event.orderId;
+  const statusAction = (event.statusAction || '').trim();
+  // statusAction: 'pickUp' | 'dispatch' | 'deliver'
   const statusMap = {
     pickUp:   { orderStatus: 'picking_up', deliveryStatus: 'picking_up', timeField: 'picked_up_at' },
     dispatch: { orderStatus: 'in_transit', deliveryStatus: 'in_transit', timeField: 'dispatched_at' },
     deliver:  { orderStatus: 'delivered',  deliveryStatus: 'delivered',  timeField: 'delivered_at' },
   };
-  const mapping = statusMap[action];
+  const mapping = statusMap[statusAction];
   if (!mapping) return { success: false, errMsg: '无效操作' };
 
   const order = await db.collection('orders').doc(orderId).get();
